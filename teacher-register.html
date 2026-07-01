@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Registration Hub - ICFAI University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+        }
+        
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 40px 20px; 
+            color: #111; 
+            position: relative;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('ICFAIimage.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container { 
+            background: rgba(255, 255, 255, 0.96); 
+            backdrop-filter: blur(2px);
+            width: 100%; 
+            max-width: 700px; 
+            padding: 40px; 
+            border-radius: 16px; 
+            border: 2px solid #111; 
+            box-shadow: 8px 8px 0px #111; 
+            z-index: 2;
+        }
+        
+        h1 { 
+            text-align: center; 
+            margin-bottom: 10px; 
+            color: #e67e22; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            font-size: 2rem;
+        }
+        
+        h3 { 
+            margin: 25px 0 15px 0; 
+            border-bottom: 2px solid #111; 
+            padding-bottom: 5px; 
+            color: #111; 
+            font-size: 16px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        
+        h3 i { color: #e67e22; }
+
+        .sticker-banner { 
+            background: #fdf5ee; 
+            padding: 12px; 
+            border-radius: 8px; 
+            text-align: center; 
+            color: #d35400; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 25px; 
+            border-left: 4px solid #e67e22;
+        }
+
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+        }
+        
+        .form-group { margin-bottom: 5px; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            font-size: 13.5px; 
+        }
+        
+        input, select, textarea { 
+            width: 100%; 
+            padding: 11px 14px; 
+            border: 2px solid #111; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            outline: none; 
+            background: white; 
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        input:focus, select:focus { 
+            border-color: #e67e22; 
+            box-shadow: 0 0 0 3px rgba(230,126,34,0.1); 
+        }
+        
+        .btn-container { 
+            display: flex; 
+            gap: 15px; 
+            margin-top: 35px; 
+        }
+        
+        .btn { 
+            flex: 1; 
+            padding: 14px; 
+            border: 2px solid #111; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-align: center; 
+            text-decoration: none; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 8px; 
+            box-shadow: 4px 4px 0 #111; 
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        
+        .btn:active { 
+            transform: translate(2px,2px); 
+            box-shadow: 2px 2px 0 #111; 
+        }
+        
+        .btn-submit { background: #e67e22; color: white; }
+        .btn-submit:hover { background: #d35400; }
+        .btn-back { background: #ffffff; color: #111; }
+
+        .sarcastic-loader-overlay { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: rgba(230, 126, 34, 0.98); 
+            z-index: 9999; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            color: white; 
+            text-align: center; 
+        }
+        
+        .spinner-box { 
+            width: 65px; 
+            height: 65px; 
+            border: 5px solid rgba(255,255,255,0.2); 
+            border-top: 5px solid #ffffff; 
+            border-radius: 50%; 
+            animation: spin 0.8s linear infinite; 
+            margin-bottom: 25px; 
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .sarcastic-message { font-size: 20px; font-weight: 700; max-width: 550px; padding: 0 20px; }
+
+        @media screen and (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 1.6rem; }
+        }
+
+        @media screen and (max-width: 520px) {
+            body { padding: 10px; }
+            .container { padding: 20px 15px; border-radius: 12px; }
+            .form-grid { grid-template-columns: 1fr; gap: 16px; }
+            h1 { font-size: 1.4rem; flex-wrap: wrap; }
+            input, select, .btn { font-size: 16px; padding: 12px; }
+            .btn-container { flex-direction: column-reverse; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="sarcasticLoader" class="sarcastic-loader-overlay">
+    <div class="spinner-box"></div>
+    <div id="loaderTextPhrase" class="sarcastic-message">Establishing administrative identity parameters...</div>
+</div>
+
+<div class="container">
+    <h1><i class="fa-solid fa-chalkboard-teacher"></i> Faculty Onboarding <i class="fa-solid fa-shield"></i></h1>
+    <div class="sticker-banner">
+        <i class="fa-solid fa-graduation-cap"></i> "Technology is just a tool. In terms of getting the kids working together and motivating them, the teacher is the most important."
+    </div>
+
+    <form id="teacherForm">
+        <h3><i class="fa-solid fa-key"></i> Administrative Credentials</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="teacherId">Teacher ID / Employee Code*</label>
+                <input type="text" id="teacherId" required placeholder="e.g. TCH8892">
+            </div>
+            <div class="form-group">
+                <label for="password">Portal Access Password*</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+        </div>
+
+        <h3><i class="fa-solid fa-id-card"></i> Professional Profile</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="teacherName">Full Instructor Name*</label>
+                <input type="text" id="teacherName" required placeholder="e.g. Prof. Lalrinsanga" oninput="this.value = this.value.replace(/[^a-zA-Z.\s]/g, '')">
+            </div>
+            <div class="form-group">
+                <label for="dept">Assigned Primary Department*</label>
+                <select id="dept" required>
+                    <option value="">-- Choose Department --</option>
+                    <option value="BCA">BCA / Computer Applications</option>
+                    <option value="BBA">BBA / Management Tracks</option>
+                    <option value="BCOM">B.Com / Commerce Division</option>
+                    <option value="BA">BA / Humanities</option>
+                    <option value="MSW">Social Work Department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Official Email Address*</label>
+                <input type="email" id="email" required placeholder="name@icfai.edu.in">
+            </div>
+            <div class="form-group">
+                <label for="mobile">Contact Mobile Number (10 Digits)*</label>
+                <input type="tel" id="mobile" required placeholder="10-Digit Phone" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="index.html" class="btn btn-back"><i class="fa-solid fa-arrow-left"></i> Exit</a>
+            <button type="submit" class="btn btn-submit"><i class="fa-solid fa-check"></i> REGISTER ACCOUNT</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<script>
+// Exactly identical database config mapping used in your workspace
+const firebaseConfig = {
+  apiKey: "AIzaSyDq3sT7R3QL6oA8NTp7sBkV6uWNESzjmko",
+  authDomain: "studentinfo-7b36d.firebaseapp.com",
+  databaseURL: "https://studentinfo-7b36d-default-rtdb.firebaseio.com",
+  projectId: "studentinfo-7b36d",
+  storageBucket: "studentinfo-7b36d.firebasestorage.app",
+  messagingSenderId: "10133236572",
+  appId: "1:10133236572:web:28714298efdb380d692f99",
+  measurementId: "G-PFXBVTTHHV"
+};
+
+// Global Initialization Check Safeguard
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const database = firebase.database();
+
+const facultyPhrases = [
+    "Allocating workspace architecture variables...",
+    "Securing administrative node configurations...",
+    "Encrypting instructor authorization signatures...",
+    "Connecting to core campus data matrix..."
+];
+
+function fireLoader(show) {
+    const loader = document.getElementById("sarcasticLoader");
+    if(show) {
+        document.getElementById("loaderTextPhrase").innerText = facultyPhrases[Math.floor(Math.random() * facultyPhrases.length)];
+        loader.style.display = "flex";
+    } else {
+        setTimeout(() => { loader.style.display = "none"; }, 400);
+    }
+}
+
+document.getElementById("teacherForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const teacherId = document.getElementById("teacherId").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+
+    if(mobile.length !== 10 || isNaN(mobile)) {
+        return alert("Please enter a valid 10-digit phone number entry.");
+    }
+
+    fireLoader(true);
+    
+    const teacherData = {
+        id: teacherId,
+        password: document.getElementById("password").value,
+        name: document.getElementById("teacherName").value.trim(),
+        department: document.getElementById("dept").value,
+        email: document.getElementById("email").value.trim(),
+        mobile: mobile
+    };
+
+    // Validating unique index registry against the 'teachers' node
+    database.ref('teachers/' + teacherId).once('value', function(snapshot) {
+        if (snapshot.exists()) {
+            fireLoader(false);
+            alert("This Instructor Employee ID is already registered inside our system!");
+        } else {
+            database.ref('teachers/' + teacherId).set(teacherData)
+            .then(() => {
+                fireLoader(false);
+                alert("Faculty account created successfully! Welcome to the system.");
+                window.location.href = "index.html";
+            })
+            .catch(err => {
+                fireLoader(false);
+                console.error(err);
+                alert("Database transmission write error: " + err.message);
+            });
+        }
+    });
+});
+</script>
+
+<footer style="text-align: center; padding: 35px; margin-top: 40px; font-family: 'Times New Roman', 'Georgia', serif; letter-spacing: 2px; z-index:2;">
+    <p style="color: #64748b; margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 6px;">Architected By</p>
+    <p style="margin: 8px 0 0 0; font-weight: 800; font-size: 30px; display: inline-block;
+              background: linear-gradient(45deg, #ff007f, #ffb703, #ff007f);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              letter-spacing: 3px;
+              text-shadow: 0px 3px 6px rgba(0,0,0,0.08);">
+        SOPHIA VANCHHAWNG
+    </p>
+</footer>
+</body>
+</html>

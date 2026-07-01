@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICFAI Admin Dashboard Portal</title>
+    <!-- FontAwesome Vector Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Hierarchy Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --sidebar-blue: #1e6bf3;
+            --background-grey: #f4f6f9;
+            --dark-text: #2d3748;
+            --card-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            display: flex;
+            background: url('ICFAIimage.png') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            color: var(--dark-text);
+        }
+
+        /* ── Sidebar System ──────────────────────────────────────── */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #1d68eb 0%, #0a58ca 100%);
+            color: white;
+            padding: 25px 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.15);
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10;
+        }
+
+        .sidebar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 0 12px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 13px 18px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-item i {
+            margin-right: 14px;
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .sidebar-item.active {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ── Main Dashboard Display Container ────────────────────── */
+        .dashboard-container {
+            margin-left: 260px;
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 1400px;
+            width: calc(100% - 260px);
+        }
+
+        /* ── White Glass Dashboard Cards ─────────────────────────── */
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+        }
+
+        .card-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .session-user-badge {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ── Department Dynamic Badges ───────────────────────────── */
+        .stats-badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .stats-badge-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary-blue);
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 220px;
+        }
+
+        .stats-badge-item .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .stats-badge-item .count {
+            margin-left: auto;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ── Operational Grid Controls Filters ─────────────────────── */
+        .filter-flex-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 15px;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-group label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            outline: none;
+            color: var(--dark-text);
+        }
+
+        .filter-input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+        }
+
+        .btn-reset {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            transition: background 0.2s;
+        }
+
+        .btn-reset:hover { background: #475569; }
+
+        /* ── Standardized Table Structures ───────────────────────── */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .admin-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background: white;
+            font-size: 14px;
+        }
+
+        .admin-data-table th {
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+            padding: 14px 16px;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .admin-data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .admin-data-table tr:last-child td { border: none; }
+
+        /* ── General Control Element Actions ─────────────────────── */
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            color: white;
+        }
+        .action-btn:hover { opacity: 0.9; }
+
+        /* ── Global Pop-Up Overlays (Modals) ──────────────────────── */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: var(--card-radius);
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: #f8fafc;
+            padding: 18px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .modal-close-trigger {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+
+        .modal-close-trigger:hover { color: #475569; }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        /* ── Layout Utilities ───────────────────────────────────── */
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-element {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-element label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .form-submit-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .form-submit-btn:hover { background: #0a58ca; }
+
+        .subject-pill {
+            display: inline-block;
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            margin: 4px;
+            border: 1px solid #bfdbfe;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Sidebar System ── -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">ICFAI Admin</div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item active"><i class="fas fa-folder"></i> Student Archive</li>
+            <li class="sidebar-item" onclick="openGradingModal()"><i class="fas fa-edit"></i> Student Grading</li>
+            <li class="sidebar-item" onclick="openOverallGradeModal()"><i class="fas fa-th-list"></i> Overall Grade View</li>
+            <li class="sidebar-item" onclick="openLoginInfoModal()"><i class="fas fa-key"></i> Student Login Info</li>
+            <li class="sidebar-item" onclick="openMatrixModal('BCA')"><i class="fas fa-book"></i> Syllabus Summary</li>
+            <!-- New Features Injected Here -->
+            <li class="sidebar-item" onclick="document.getElementById('noticeModal').style.display='flex'"><i class="fas fa-bullhorn"></i> Notice Broadcaster</li>
+            <li class="sidebar-item" onclick="document.getElementById('leaveModal').style.display='flex'; syncLeaveApplicationsDesk();"><i class="fas fa-envelope-open-text"></i> Leave Requests Desk</li>
+            <li class="sidebar-item" style="margin-top: 30px; color: #f87171;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Exit Portal</li>
+        </ul>
+    </nav>
+
+    <!-- ── Main Dashboard Display Container ── -->
+    <main class="dashboard-container">
+        
+        <!-- Top Operations Card Base -->
+        <header class="dashboard-card" style="padding: 16px 24px;">
+            <div class="card-header-bar" style="margin: 0; padding: 0; border: none;">
+                <h1 class="card-title" style="font-size: 22px;"><i class="fas fa-sliders-h" style="color: var(--primary-blue);"></i> Administrative Operations</h1>
+                <div class="session-user-badge">
+                    <i class="fas fa-user-shield"></i> Root Active Session
+                </div>
+            </div>
+        </header>
+
+        <!-- No of Students Block Card -->
+        <section class="dashboard-card">
+            <h2 class="card-title"><i class="fas fa-chart-pie" style="color: var(--primary-blue);"></i> No of Students</h2>
+            <div id="department-stats-target" class="stats-badge-grid">
+                <!-- Script-generated stats map badges load dynamically here -->
+            </div>
+        </section>
+
+        <!-- Registered Student Base Records Main Dashboard -->
+        <section class="dashboard-card">
+            <h2 class="card-title" style="margin-bottom: 20px;"><i class="fas fa-users" style="color: var(--primary-blue);"></i> Registered Student Base Records</h2>
+            
+            <!-- Filters Controls Rows -->
+            <div class="filter-flex-row">
+                <div class="filter-group">
+                    <label><i class="fas fa-search"></i> Search Roll No</label>
+                    <input type="text" id="search-roll" class="filter-input" placeholder="Type roll number..." oninput="filterStudentTable()">
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-filter"></i> Filter Department</label>
+                    <select id="search-dept" class="filter-input" onchange="filterStudentTable()">
+                        <option value="">-- All Departments --</option>
+                        <option value="BCA">BCA</option>
+                        <option value="BBA">BBA</option>
+                        <option value="BBA_HT">BBA (HT)</option>
+                        <option value="BCOM">BCOM</option>
+                        <option value="MBA">MBA</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-calendar-alt"></i> Filter Year/Semester</label>
+                    <select id="search-year" class="filter-input" onchange="filterStudentTable()">
+                        <option value="">-- All Batches --</option>
+                        <option value="Semester 1">Semester 1</option>
+                        <option value="Semester 2">Semester 2</option>
+                        <option value="Semester 3">Semester 3</option>
+                        <option value="Semester 4">Semester 4</option>
+                        <option value="Semester 5">Semester 5</option>
+                        <option value="Semester 6">Semester 6</option>
+                    </select>
+                </div>
+                <button class="btn-reset" onclick="resetSearchFilters()"><i class="fas fa-sync-alt"></i> Reset</button>
+            </div>
+
+            <!-- Master Student Base Records Table Structure -->
+            <div class="table-responsive">
+                <table class="admin-data-table">
+                    <thead>
+                        <tr>
+                            <th>Roll Number</th>
+                            <th>Full Name</th>
+                            <th>Department</th>
+                            <th>Semester</th>
+                            <th>CGPA Track</th>
+                            <th>Semester Fee Status</th>
+                            <th>Control Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-records-target">
+                        <!-- Student row items injected by real-time sync listeners -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- ── MODAL WINDOW 1: Student Grading Controller Desk ── -->
+    <div id="gradingModal" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Academic Evaluation Recorder Form</h2>
+                <button class="modal-close-trigger" onclick="closeGradingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="marksForm">
+                    <div class="form-grid-2">
+                        <div class="form-element">
+                            <label>Department Stream Mapping</label>
+                            <select id="marks-dept" class="filter-input" required>
+                                <option value="BCA">BCA</option>
+                                <option value="BBA">BBA</option>
+                                <option value="BBA_HT">BBA_HT</option>
+                                <option value="BCOM">BCOM</option>
+                                <option value="MBA">MBA</option>
+                            </select>
+                        </div>
+                        <div class="form-element">
+                            <label>Target Class Track</label>
+                            <select id="marks-semester" class="filter-input" required>
+                                <option value="year1">1st Year (Sem 1/2)</option>
+                                <option value="year2">2nd Year (Sem 3/4)</option>
+                                <option value="year3">3rd Year (Sem 5/6)</option>
+                                <option value="year4">4th Year (Sem 7/8)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <label>Student Profile Identity Assignment</label>
+                        <select id="marks-roll" class="filter-input" required>
+                            <option value="">-- Select Name --</option>
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label>Syllabus Subject Module Designation</label>
+                        <select id="marks-subject" class="filter-input" required>
+                            <option value="">-- Select Subject Designation --</option>
+                        </select>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-element">
+                            <label>Examination Matrix Category</label>
+                            <select id="marks-type" class="filter-input" required>
+                                <option value="Internal Assessment">Internal Assessment</option>
+                                <option value="Mid-Term Examination">Mid-Term Examination</option>
+                                <option value="End-Semester Examination">End-Semester Examination</option>
+                                <option value="Practical Lab Assessment">Practical Lab Assessment</option>
+                            </select>
+                        </div>
+                        <div class="form-element">
+                            <label>Score Secured (0 - 100)</label>
+                            <input type="number" id="marks-score" class="filter-input" min="0" max="100" placeholder="Ex: 85" required>
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <label>Evaluation Date Stamp</label>
+                        <input type="date" id="marks-date" class="filter-input" required>
+                    </div>
+                    <button type="submit" class="form-submit-btn">Publish Transcript Grade Entry</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MODAL WINDOW 2: Master Overall Grade Viewer Matrix ── -->
+    <div id="overallGradeModal" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-th-list"></i> Academic Historical Transcripts Viewer</h2>
+                <button class="modal-close-trigger" onclick="closeOverallGradeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid-2" style="margin-bottom: 12px;">
+                    <div class="form-element" style="margin:0;">
+                        <label>Filter Department</label>
+                        <select id="view-dept" class="filter-input">
+                            <option value="">-- All Departments --</option>
+                            <option value="BCA">BCA</option>
+                            <option value="BBA">BBA</option>
+                            <option value="BBA_HT">BBA_HT</option>
+                            <option value="BCOM">BCOM</option>
+                            <option value="MBA">MBA</option>
+                        </select>
+                    </div>
+                    <div class="form-element" style="margin:0;">
+                        <label>Filter Academic Year</label>
+                        <select id="view-semester" class="filter-input">
+                            <option value="">-- All Terms --</option>
+                            <option value="year1">1st Year Track</option>
+                            <option value="year2">2nd Year Track</option>
+                            <option value="year3">3rd Year Track</option>
+                            <option value="year4">4th Year Track</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-element">
+                    <label>Target Student Selected</label>
+                    <select id="view-roll" class="filter-input">
+                        <option value="">-- Choose Student Name --</option>
+                    </select>
+                </div>
+                <hr style="border:none; border-top:1px solid #e2e8f0; margin:15px 0;">
+                <div id="overall-grades-view-target" style="display:flex; flex-direction:column; gap:10px;">
+                    <p style="text-align: center; color: #94a3b8; font-style: italic;">Select parameters to fetch student transcript updates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MODAL WINDOW 3: Authentication Credentials Ledger ── -->
+    <div id="loginInfoModal" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
+        <div class="modal-card" style="max-width: 750px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> Student System Access Verification Ledger</h2>
+                <button class="modal-close-trigger" onclick="closeLoginInfoModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:0;">
+                <div class="table-responsive" style="border:none; border-radius:0;">
+                    <table class="admin-data-table">
+                        <thead>
+                            <tr>
+                                <th>Roll Index</th>
+                                <th>Full Identity Name</th>
+                                <th>Username System Tag</th>
+                                <th>Cleartext Security Access Code</th>
+                            </tr>
+                        </thead>
+                        <tbody id="login-credentials-target">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MODAL WINDOW 4: Global Syllabus Summary Grid Matrix ── -->
+    <div id="matrixModal" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="matrixModalTitle">Academic Syllabus Modules Mapping Layout</h2>
+                <button class="modal-close-trigger" onclick="closeMatrixModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="matrixModalBody" style="padding: 20px; text-align: center;">
+                <!-- Syllabus dataset pills injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ── NEW: MODAL WINDOW 5: Notice Board Broadcaster ── -->
+    <div id="noticeModal" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-bullhorn"></i> Global Announcement Broadcaster</h2>
+                <button class="modal-close-trigger" onclick="document.getElementById('noticeModal').style.display='none'">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="adminNoticeForm">
+                    <div class="form-element">
+                        <label>Target Audience Scope</label>
+                        <select id="notice-target" class="filter-input" required>
+                            <option value="All">Broadcast universally to all departments</option>
+                            <option value="BCA">BCA Department Exclusively</option>
+                            <option value="BBA">BBA Department Exclusively</option>
+                            <option value="BBA_HT">BBA_HT Department Exclusively</option>
+                            <option value="BCOM">BCOM Department Exclusively</option>
+                            <option value="MBA">MBA Department Exclusively</option>
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label>Announcement Head Header Title</label>
+                        <input type="text" id="notice-title" class="filter-input" placeholder="Ex: End Semester Practical Exam Schedules" required>
+                    </div>
+                    <div class="form-element">
+                        <label>Notice Content Body Documentation Text</label>
+                        <textarea id="notice-body" class="filter-input" rows="5" style="resize:vertical;" placeholder="Write structural memo summary content vectors here..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit-btn" style="background-color: #fd7e14;">Transmit Broadcast Notice Wire</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── NEW: MODAL WINDOW 6: Leave Exemption Applications Review Desk ── -->
+    <div id="leaveModal" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-envelope-open-text"></i> Leave Absence Applications Review Registry</h2>
+                <button class="modal-close-trigger" onclick="document.getElementById('leaveModal').style.display='none'">&times;</button>
+            </div>
+            <div class="modal-body" id="admin-leave-queue-target" style="background-color:#f1f5f9; padding: 16px;">
+                <!-- Leave application data items stream live from Firebase here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Core Web SDK Modules Components -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Combined Modular Script Linkage Logic -->
+    <script src="./admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+        }
+        
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 40px 20px; 
+            color: #111; 
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('ICFAIimage.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container { 
+            background: rgba(255, 255, 255, 0.96); 
+            backdrop-filter: blur(2px);
+            width: 100%; 
+            max-width: 850px; 
+            padding: 40px; 
+            border-radius: 16px; 
+            border: 2px solid #111; 
+            box-shadow: 8px 8px 0px #111; 
+        }
+        
+        h1 { 
+            text-align: center; 
+            margin-bottom: 10px; 
+            color: #0568be; 
+            font-weight: 800; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            font-size: 2rem;
+        }
+        
+        h3 { 
+            margin: 30px 0 15px 0; 
+            border-bottom: 2px solid #111; 
+            padding-bottom: 5px; 
+            color: #111; 
+            font-size: 16px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        
+        h3 i { color: #0568be; }
+
+        .sticker-banner { 
+            background: #eef5fc; 
+            padding: 12px; 
+            border-radius: 8px; 
+            text-align: center; 
+            color: #0568be; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 25px; 
+        }
+
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+        }
+        
+        .form-group { margin-bottom: 5px; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            font-size: 13.5px; 
+        }
+        
+        input, select, textarea { 
+            width: 100%; 
+            padding: 11px 14px; 
+            border: 2px solid #111; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            outline: none; 
+            background: white; 
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        input:focus, select:focus { 
+            border-color: #0568be; 
+            box-shadow: 0 0 0 3px rgba(5,104,190,0.1); 
+        }
+        
+        .btn-container { 
+            display: flex; 
+            gap: 15px; 
+            margin-top: 35px; 
+        }
+        
+        .btn { 
+            flex: 1; 
+            padding: 14px; 
+            border: 2px solid #111; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-align: center; 
+            text-decoration: none; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 8px; 
+            box-shadow: 4px 4px 0 #111; 
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        
+        .btn:active { 
+            transform: translate(2px,2px); 
+            box-shadow: 2px 2px 0 #111; 
+        }
+        
+        .btn-submit { background: #0568be; color: white; }
+        .btn-back { background: #ffffff; color: #111; }
+
+        .sarcastic-loader-overlay { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: rgba(5, 104, 190, 0.98); 
+            z-index: 9999; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            color: white; 
+            text-align: center; 
+        }
+        
+        .spinner-box { 
+            width: 65px; 
+            height: 65px; 
+            border: 5px solid rgba(255,255,255,0.2); 
+            border-top: 5px solid #ffffff; 
+            border-radius: 50%; 
+            animation: spin 0.8s linear infinite; 
+            margin-bottom: 25px; 
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .sarcastic-message { font-size: 20px; font-weight: 700; max-width: 550px; padding: 0 20px; }
+
+        /* Tablet Responsive Layer */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Mobile Optimization Ruleset */
+        @media screen and (max-width: 520px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+                flex-wrap: wrap;
+            }
+
+            input, select, .btn {
+                font-size: 16px; /* Safeguard logic preventing default iOS Safari page zooms on form-focus */
+                padding: 12px;  
+            }
+
+            .btn-container {
+                flex-direction: column-reverse;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="sarcasticLoader" class="sarcastic-loader-overlay">
+    <div class="spinner-box"></div>
+    <div id="loaderTextPhrase" class="sarcastic-message">Writing parameters into the void...</div>
+</div>
+
+<div class="container">
+    <h1><i class="fa-solid fa-snowflake"></i> Registration Framework <i class="fa-solid fa-clover"></i></h1>
+    <div class="sticker-banner">
+        <i class="fa-solid fa-sun"></i> "Roots of education are bitter, but the fruit is delightfully sweet." Let's establish your path! 🌸
+    </div>
+
+    <form id="studentForm">
+        <h3><i class="fa-solid fa-key"></i> Credentials Identification</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="roll">Roll Number (Unique User ID)*</label>
+                <input type="text" id="roll" required placeholder="e.g. 22BCA08">
+            </div>
+            <div class="form-group">
+                <label for="password">Password*</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+        </div>
+
+        <h3><i class="fa-solid fa-user"></i> Personal Identity </h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="fullName">Full Name*</label>
+                <input type="text" id="fullName" required placeholder="John Doe" oninput="this.value = this.value.replace(/[^a-zA-Z.\s]/g, '')">
+            </div>
+            <div class="form-group">
+                <label for="fatherName">Father's Name*</label>
+                <input type="text" id="fatherName" required placeholder="Senior Doe" oninput="this.value = this.value.replace(/[^a-zA-Z.\s]/g, '')">
+            </div>
+            <div class="form-group">
+                <label for="age">Age *</label>
+                <input type="number" id="age" required min="16" max="100">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender*</label>
+                <select id="gender" required>
+                    <option value="">Select Option</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="maritalStatus">Marital Status*</label>
+                <select id="maritalStatus" required>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number (Max 10 Digits)*</label>
+                <input type="tel" id="mobile" required placeholder="10-Digit Contact Phone" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+        </div>
+
+        <h3><i class="fa-solid fa-graduation-cap"></i> Academic</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="department">Department / Program Option*</label>
+                <select id="department" required>
+                    <option value="">-- Choose Program Track --</option>
+                    <option value="BBA">BBA</option>
+                    <option value="BBA (H&T)">BBA (Hospitality & Tourism)</option>
+                    <option value="BCOM">B.Com</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BSW">BSW</option>
+                    <option value="BA">BA</option>
+                    <option value="MBA">MBA</option>
+                    <option value="MCOM">M.Com</option>
+                    <option value="MSW">MSW</option>
+                    <option value="MA">MA</option>
+                    <option value="PHds">Doctoral Programs</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="year">Current Enrolled Semester*</label>
+                <select id="year" required>
+                    <option value="1st Semester">1st Sem</option>
+                    <option value="2nd Semester">2nd Sem</option>
+                    <option value="3rd Semester">3rd Sem</option>
+                    <option value="4th Semester">4th Sem</option>
+                    <option value="5th Semester">5th Sem</option>
+                    <option value="6th Semester">6th Sem</option>
+                    <option value="7th Semester">7th Sem</option>
+                    <option value="8th Semester">8th Sem</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cgpa">Current Cumulative CGPA*</label>
+                <input type="text" id="cgpa" placeholder="e.g. 8.45" required>
+            </div>
+        </div>
+
+        <h3><i class="fa-solid fa-file-invoice"></i> Educational Records</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="school10">10th Standard School Name*</label>
+                <input type="text" id="school10" required>
+            </div>
+            <div class="form-group">
+                <label for="pass10">10th Passing Year*</label>
+                <select id="pass10" required>
+                    <option value="">Select Year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="school12">12th Standard School Name*</label>
+                <input type="text" id="school12" required>
+            </div>
+            <div class="form-group">
+                <label for="pass12">12th Passing Year*</label>
+                <select id="pass12" required>
+                    <option value="">Select Year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cert10">Upload 10th Certificate (Image/PDF)*</label>
+                <input type="file" id="cert10" accept="image/*,application/pdf" required>
+            </div>
+            <div class="form-group">
+                <label for="cert12">Upload 12th Certificate (Image/PDF)*</label>
+                <input type="file" id="cert12" accept="image/*,application/pdf" required>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="index.html" class="btn btn-back"><i class="fa-solid fa-arrow-left"></i> Exit</a>
+            <button type="submit" class="btn btn-submit"><i class="fa-solid fa-check"></i> SAVE</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const pass10Select = document.getElementById("pass10");
+    const pass12Select = document.getElementById("pass12");
+    
+    for (let year = 1980; year <= 2030; year++) {
+        let opt10 = document.createElement("option");
+        opt10.value = year;
+        opt10.textContent = year;
+        pass10Select.appendChild(opt10);
+
+        let opt12 = document.createElement("option");
+        opt12.value = year;
+        opt12.textContent = year;
+        pass12Select.appendChild(opt12);
+    }
+});
+
+// REMINDER: Move these configurations out into an environment config layer before production 
+const firebaseConfig = {
+  apiKey: "AIzaSyDq3sT7R3QL6oA8NTp7sBkV6uWNESzjmko",
+  authDomain: "studentinfo-7b36d.firebaseapp.com",
+  databaseURL: "https://studentinfo-7b36d-default-rtdb.firebaseio.com",
+  projectId: "studentinfo-7b36d",
+  storageBucket: "studentinfo-7b36d.firebasestorage.app",
+  messagingSenderId: "10133236572",
+  appId: "1:10133236572:web:28714298efdb380d692f99",
+  measurementId: "G-PFXBVTTHHV"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+let cert10Base64 = "";
+let cert12Base64 = "";
+
+const sarcasticQuotes = [
+    "Compressing your academic brilliance into cloud variables...",
+    "Encrypting records. Our security protocol is looking out for bad actors.",
+    "Formatting certificates... scanning if that text looks altered (just kidding).",
+    "Sending your profile data to the cloud servers via carrier pigeons..."
+];
+
+function fireLoader(show) {
+    const loader = document.getElementById("sarcasticLoader");
+    if(show) {
+        document.getElementById("loaderTextPhrase").innerText = sarcasticQuotes[Math.floor(Math.random() * sarcasticQuotes.length)];
+        loader.style.display = "flex";
+    } else {
+        setTimeout(() => { loader.style.display = "none"; }, 400);
+    }
+}
+
+function handleFileSelect(evt, type) {
+    let files = evt.target.files;
+    if(files.length === 0) return;
+    let file = files[0];
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        if(type === '10') cert10Base64 = e.target.result;
+        if(type === '12') cert12Base64 = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+document.getElementById("cert10").addEventListener('change', (e) => handleFileSelect(e, '10'));
+document.getElementById("cert12").addEventListener('change', (e) => handleFileSelect(e, '12'));
+
+document.getElementById("studentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const rollNumber = document.getElementById("roll").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+
+    if(mobile.length !== 10 || isNaN(mobile)) {
+        return alert("Please supply a crisp, precisely formatted 10-digit mobile number value.");
+    }
+
+    fireLoader(true);
+    
+    const studentData = {
+        roll: rollNumber,
+        password: document.getElementById("password").value,
+        fullName: document.getElementById("fullName").value,
+        fatherName: document.getElementById("fatherName").value,
+        age: document.getElementById("age").value,
+        department: document.getElementById("department").value,
+        year: document.getElementById("year").value,
+        cgpa: document.getElementById("cgpa").value,
+        gender: document.getElementById("gender").value,
+        maritalStatus: document.getElementById("maritalStatus").value,
+        mobile: mobile,
+        school10: document.getElementById("school10").value,
+        pass10: document.getElementById("pass10").value,
+        school12: document.getElementById("school12").value,
+        pass12: document.getElementById("pass12").value,
+        cert10: cert10Base64 || "",
+        cert12: cert12Base64 || ""
+    };
+
+    database.ref('students/' + rollNumber).once('value', function(snapshot) {
+        if (snapshot.exists()) {
+            fireLoader(false);
+            alert("This Roll Number identifier is already registered!");
+        } else {
+            database.ref('students/' + rollNumber).set(studentData)
+            .then(() => {
+                fireLoader(false);
+                alert("Account created successfully! Enjoy learning 🌸");
+                window.location.href = "index.html";
+            })
+            .catch(err => {
+                fireLoader(false);
+                alert("Database transactional save fault occurred.");
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* ── Realtime Emergency SOS Modal Layout Styles ── */
+.sos-modal-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(15, 23, 42, 0.88); 
+    backdrop-filter: blur(8px); 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 99999; 
+    padding: 20px;
+}
+
+.sos-modal-box {
+    background: #ffffff; 
+    border-radius: 16px; 
+    width: 100%; 
+    max-width: 550px; 
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); 
+    overflow: hidden; 
+    border: 3px solid #dc3545; 
+    animation: sosPulseScale 0.3s ease-out;
+}
+
+.sos-modal-header {
+    background: #dc3545; 
+    color: white; 
+    padding: 22px; 
+    display: flex; 
+    align-items: center; 
+    gap: 15px;
+}
+
+.sos-modal-header h2 {
+    margin: 0; 
+    font-size: 19px; 
+    font-weight: 800; 
+    letter-spacing: 0.5px;
+}
+
+.sos-modal-header p {
+    margin: 3px 0 0 0; 
+    font-size: 11px; 
+    opacity: 0.85;
+}
+
+.sos-modal-body {
+    padding: 25px;
+}
+
+#sos-title {
+    margin: 0 0 12px 0; 
+    color: #1e293b; 
+    font-size: 21px; 
+    font-weight: 700;
+}
+
+#sos-body {
+    margin: 0 0 24px 0; 
+    color: #475569; 
+    font-size: 14px; 
+    line-height: 1.6; 
+    white-space: pre-wrap;
+}
+
+.sos-modal-body button {
+    background: #1e293b; 
+    color: white; 
+    border: none; 
+    padding: 14px; 
+    border-radius: 8px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    font-size: 14px; 
+    width: 100%; 
+    transition: background 0.2s;
+}
+
+.sos-modal-body button:hover {
+    background: #0f172a;
+}
+
+.sos-blink {
+    animation: sosBlinkAnimation 1s linear infinite;
+}
+
+@keyframes sosPulseScale {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes sosBlinkAnimation {
+    50% { opacity: 0.2; }
+}
