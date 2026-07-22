@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Registration Hub - ICFAI University</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { 
             margin: 0; 
@@ -39,14 +44,14 @@
         }
 
         .container { 
-            background: rgba(255, 255, 255, 0.96); 
+            background: rgba(255, 255, 255, 0.40); 
             backdrop-filter: blur(2px);
             width: 100%; 
             max-width: 700px; 
             padding: 40px; 
             border-radius: 16px; 
             border: 2px solid #111; 
-            box-shadow: 8px 8px 0px #111; 
+            box-shadow: 0px 0px 0px #111; 
             z-index: 2;
         }
         
@@ -64,9 +69,9 @@
         
         h3 { 
             margin: 25px 0 15px 0; 
-            border-bottom: 2px solid #111; 
+            border-bottom: 2px solid #fdfcfc; 
             padding-bottom: 5px; 
-            color: #111; 
+            color: #f8f4f4; 
             font-size: 16px; 
             font-weight: 700; 
             display: flex; 
@@ -90,6 +95,7 @@
 
         .form-grid { 
             display: grid; 
+             color: #f8f4f4; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 20px; 
         }
@@ -106,7 +112,7 @@
         input, select, textarea { 
             width: 100%; 
             padding: 11px 14px; 
-            border: 2px solid #111; 
+            border: 2px solid #fcf9f9; 
             border-radius: 8px; 
             font-size: 14px; 
             outline: none; 
@@ -116,7 +122,7 @@
         
         input:focus, select:focus { 
             border-color: #e67e22; 
-            box-shadow: 0 0 0 3px rgba(230,126,34,0.1); 
+            box-shadow: 0 0 0 3px rgba(243, 242, 241, 0.1); 
         }
         
         .btn-container { 
@@ -128,7 +134,7 @@
         .btn { 
             flex: 1; 
             padding: 14px; 
-            border: 2px solid #111; 
+            border: 2px solid #f7f7f7; 
             border-radius: 8px; 
             font-size: 15px; 
             font-weight: 700; 
@@ -171,7 +177,7 @@
         .spinner-box { 
             width: 65px; 
             height: 65px; 
-            border: 5px solid rgba(255,255,255,0.2); 
+            border: 5px solid rgb(255, 255, 255); 
             border-top: 5px solid #ffffff; 
             border-radius: 50%; 
             animation: spin 0.8s linear infinite; 
@@ -338,15 +344,15 @@ document.getElementById("teacherForm").addEventListener("submit", function(e) {
 });
 </script>
 
-<footer style="text-align: center; padding: 35px; margin-top: 40px; font-family: 'Times New Roman', 'Georgia', serif; letter-spacing: 2px; z-index:2;">
-    <p style="color: #64748b; margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 6px;">Architected By</p>
-    <p style="margin: 8px 0 0 0; font-weight: 800; font-size: 30px; display: inline-block;
-              background: linear-gradient(45deg, #ff007f, #ffb703, #ff007f);
-              -webkit-background-clip: text;
+<footer style="text-align: center; padding: 35px; margin-top: 40px; font-family: 'Times New Roman', 'Georgia', serif, 'Tangerine', cursive; letter-spacing: 2px;">
+    <p style="color: #b8bfce; margin: 0; font-size: 18px; text-transform: uppercase; letter-spacing: 6px;">Architected By</p>
+    <p style="font-family: 'Tangerine', cursive; font-optical-sizing: auto; color: #f8f8fa; font-size: 60px; font-style: normal;"
+              "background: linear-gradient(45deg, #3004f1, #ffb703, #00ff73);
+              background-clip: text;
               -webkit-text-fill-color: transparent;
-              letter-spacing: 3px;
-              text-shadow: 0px 3px 6px rgba(0,0,0,0.08);">
-        SOPHIA VANCHHAWNG
+              letter-spacing: 4px;
+              text-shadow: 0px 6px 9px rgba(0,0,0,0.08);">
+        Sophia Vanchhawng
     </p>
 </footer>
 </body>

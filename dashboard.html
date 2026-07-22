@@ -14,231 +14,32 @@
             --text-dark: #334155;
             --text-muted: #64748b;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            display: flex;
-            background: linear-gradient(rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.05)), url('ICFAIimage.png') no-repeat center center fixed;
-            background-size: cover;
-            color: var(--text-dark);
-            min-height: 100vh;
-        }
-
-        /* ── SIDEBAR STYLE ARCHITECTURE ── */
-        .sidebar {
-            width: 260px;
-            background-color: var(--dark-slate);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            padding: 20px;
-            z-index: 10;
-        }
-
-        .sidebar-brand {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #38bdf8;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .sidebar-menu li button {
-            width: 100%;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            padding: 12px 15px;
-            text-align: left;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar-menu li button:hover {
-            background-color: rgba(255,255,255,0.05);
-            color: white;
-        }
-
-        /* ── MAIN WORKSPACE ARCHITECTURE ── */
-        .main-content {
-            margin-left: 260px;
-            flex-grow: 1;
-            width: calc(100% - 260px);
-            padding: 40px;
-        }
-
-        .header-panel {
-            margin-bottom: 30px;
-        }
-
-        .header-panel h1 {
-            font-size: 28px;
-            color: var(--dark-slate);
-        }
-
-        /* Profile Snapshot Display Cards */
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .profile-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--primary-blue);
-        }
-
-        .profile-card h3 {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .profile-card p {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--dark-slate);
-        }
-
-        /* ── POPUP STRUCTURAL MODALS ── */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-container {
-            background: white;
-            width: 90%;
-            max-width: 650px;
-            border-radius: 12px;
-            padding: 30px;
-            position: relative;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .popup-title {
-            font-size: 22px;
-            color: var(--dark-slate);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* ── DATA LISTING & FIELDS ── */
-        .data-item {
-            background: #f8fafc;
-            border-left: 4px solid var(--primary-blue);
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 0 6px 6px 0;
-        }
-
-        .data-item h3 {
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-
-        .meta-span {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: block;
-            margin-top: 6px;
-        }
-
-        .edit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .edit-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .edit-group label {
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .edit-group input, .edit-group select {
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            outline: none;
-        }
-
-        .save-btn {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        /* SOS Animation Profiles */
-        @keyframes sosPulse {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes blinker {
-            50% { opacity: 0.3; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { display: flex; background: linear-gradient(rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.5)), url('ICFAIimage.png') no-repeat center fixed; background-size: cover; color: var(--text-dark); min-height: 100vh; }
+        .sidebar { width: 260px; background-color: var(--dark-slate); color: white; display: flex; flex-direction: column; position: fixed; height: 100vh; padding: 20px; z-index: 10; }
+        .sidebar-brand { font-size: 20px; font-weight: 700; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; color: #38bdf8; }
+        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .sidebar-menu li button { width: 100%; background: none; border: none; color: #94a3b8; padding: 12px 15px; text-align: left; font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: all 0.2s ease; }
+        .sidebar-menu li button:hover { background-color: rgba(255,255,255,0.05); color: white; }
+        .main-content { margin-left: 260px; flex-grow: 1; width: calc(100% - 260px); padding: 40px; }
+        .header-panel { margin-bottom: 30px; }
+        .header-panel h1 { font-size: 28px; color: var(--dark-slate); }
+        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .profile-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-blue); }
+        .profile-card h3 { font-size: 13px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .profile-card p { font-size: 20px; font-weight: 700; color: var(--dark-slate); }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 100; justify-content: center; align-items: center; }
+        .modal-container { background: white; width: 90%; max-width: 650px; border-radius: 12px; padding: 30px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--text-muted); }
+        .popup-title { font-size: 22px; color: var(--dark-slate); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .data-item { background: #f8fafc; border-left: 4px solid var(--primary-blue); padding: 15px; margin-bottom: 12px; border-radius: 0 6px 6px 0; }
+        .data-item h3 { font-size: 15px; margin-bottom: 4px; }
+        .meta-span { font-size: 12px; color: var(--text-muted); display: block; margin-top: 6px; }
+        .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .edit-group { display: flex; flex-direction: column; gap: 5px; }
+        .edit-group label { font-size: 13px; font-weight: 600; }
+        .edit-group input, .edit-group select { padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; outline: none; }
+        .save-btn { background-color: var(--primary-blue); color: white; border: none; padding: 12px 25px; font-weight: 600; border-radius: 6px; cursor: pointer; width: 100%; }
     </style>
 </head>
 <body>
@@ -264,420 +65,221 @@
             <h1 id="welcomeMessage">Verifying Session Reference...</h1>
             <p style="color: var(--text-muted); margin-top: 5px;">Continuous Academic Performance Monitoring Workspace</p>
         </div>
-
         <div class="profile-grid">
             <div class="profile-card"><h3>Legal Name</h3><p id="card-name">--</p></div>
             <div class="profile-card" style="border-top-color:#10b981;"><h3>Roll Number</h3><p id="card-roll">--</p></div>
             <div class="profile-card" style="border-top-color:#f59e0b;"><h3>Department</h3><p id="card-dept">--</p></div>
-            <div class="profile-card" style="border-top-color:#8b5cf6;"><h3>Classification</h3><p id="card-year">--</p></div>
+            <div class="profile-card" style="border-top-color:#8b5cf6;"><h3>Semester</h3><p id="card-year">--</p></div>
             <div class="profile-card" style="border-top-color:#ec4899;"><h3>CGPA Cumulative</h3><p id="card-cgpa">0.00</p></div>
         </div>
     </div>
 
-    <div id="modal-profile-view" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-profile-view')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-id-card"></i> Student Registry Dossier</h2>
-            <div id="dossier-target"></div>
-        </div>
-    </div>
+    <div id="modal-profile-view" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-profile-view')">&times;</button><h2 class="popup-title"><i class="fas fa-id-card"></i> Student Registry Dossier</h2><div id="dossier-target"></div></div></div>
+    <div id="modal-info-changes" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-info-changes')">&times;</button><h2 class="popup-title"><i class="fas fa-user-edit"></i> Modify Profile Settings</h2><form id="editForm"><div class="edit-grid"><div class="edit-group"><label>Password</label><input type="text" id="edit-password"></div><div class="edit-group"><label>Full Name</label><input type="text" id="edit-fullName"></div><div class="edit-group"><label>Father/Mother Name</label><input type="text" id="edit-fatherName"></div><div class="edit-group"><label>Age</label><input type="number" id="edit-age"></div><div class="edit-group"><label>Academic Department</label><input type="text" id="edit-department" readonly style="background:#e2e8f0;"></div><div class="edit-group"><label>Semester</label><input type="text" id="edit-year" readonly style="background:#e2e8f0;"></div><div class="edit-group"><label>CGPA</label><input type="text" id="edit-cgpa" readonly style="background:#e2e8f0;"></div><div class="edit-group"><label>Mobile</label><input type="text" id="edit-mobile"></div></div><button type="submit" class="save-btn" style="margin-top:20px;">Commit Operational Modifications</button></form></div></div>
+    <div id="modal-marks" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-marks')">&times;</button><h2 class="popup-title"><i class="fas fa-chart-bar"></i> Grades and Marks</h2><div id="marks-target-container"></div></div></div>
+    <div id="modal-remarks" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-remarks')">&times;</button><h2 class="popup-title"><i class="fas fa-comments-alt"></i> Notification & Remarks</h2><div id="remarks-target-container"></div></div></div>
+    <div id="modal-homework" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-homework')">&times;</button><h2 class="popup-title"><i class="fas fa-book-reader"></i>Homework & Tasks</h2><div id="homework-target-container"></div></div></div>
+    <div id="modal-assignments" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-assignments')">&times;</button><h2 class="popup-title"><i class="fas fa-project-diagram"></i> Assignments</h2><div id="assignments-target-container"></div></div></div>
+    <div id="modal-leave-request" class="modal-overlay" onclick="closeModalOnOverlay(event, this)"><div class="modal-container"><button class="close-modal" onclick="closeModal('modal-leave-request')">&times;</button><h2 class="popup-title"><i class="fas fa-plane-departure"></i> Leave Application</h2><form id="leaveApplicationForm" style="margin-bottom: 25px; background: #f1f5f9; padding: 15px; border-radius: 8px;"><div class="edit-grid" style="grid-template-columns: 1fr;"><div class="edit-group"><label style="color:var(--text-dark); font-weight:600;">Reason for Leave Statement</label><input type="text" id="leave-reason" placeholder="e.g., Medical Concerns / Urgent Family Commits" required></div><div class="edit-grid" style="grid-template-columns: 1fr 1fr; margin-top: 12px; gap: 15px;"><div class="edit-group"><label style="color:var(--text-dark); font-weight:600;">Effective From</label><input type="date" id="leave-start" required></div><div class="edit-group"><label style="color:var(--text-dark); font-weight:600;">Effective To</label><input type="date" id="leave-end" required></div></div></div><button type="submit" class="save-btn" style="margin-top:15px; background-color: var(--primary-blue);">File Leave Request</button></form><h3 style="font-size:15px; color:var(--dark-slate); margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:6px;"><i class="fas fa-history"></i> Filed Exemption History Tracking</h3><div id="leave-history-target"><p style="color:var(--text-muted); font-style:italic; text-align:center;">Assembling record tracking nodes...</p></div></div></div>
 
-    <div id="modal-info-changes" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-info-changes')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-user-edit"></i> Modify Profile Settings</h2>
-            <form id="editForm">
-                <div class="edit-grid">
-                    <div class="edit-group"><label>Password</label><input type="text" id="edit-password"></div>
-                    <div class="edit-group"><label>Full Name</label><input type="text" id="edit-fullName"></div>
-                    <div class="edit-group"><label>Father/Mother Name</label><input type="text" id="edit-fatherName"></div>
-                    <div class="edit-group"><label>Age</label><input type="number" id="edit-age"></div>
-                    <div class="edit-group"><label>Academic Department</label><input type="text" id="edit-department" readonly style="background:#e2e8f0;"></div>
-                    <div class="edit-group"><label>Year</label><input type="text" id="edit-year" readonly style="background:#e2e8f0;"></div>
-                    <div class="edit-group"><label>CGPA</label><input type="text" id="edit-cgpa" readonly style="background:#e2e8f0;"></div>
-                    <div class="edit-group"><label>Mobile</label><input type="text" id="edit-mobile"></div>
-                </div>
-                <button type="submit" class="save-btn" style="margin-top:20px;">Commit Operational Modifications</button>
-            </form>
-        </div>
-    </div>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyDq3sT7R3QL6oA8NTp7sBkV6uWNESzjmko",
+    authDomain: "studentinfo-7b36d.firebaseapp.com",
+    databaseURL: "https://studentinfo-7b36d-default-rtdb.firebaseio.com",
+    projectId: "studentinfo-7b36d"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-    <div id="modal-marks" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-marks')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-chart-bar"></i> Grades and Marks</h2>
-            <div id="marks-target-container"></div>
-        </div>
-    </div>
+let currentStudentRoll = localStorage.getItem('currentStudentRoll') || "";
+let studentDept = "";
+let studentYear = ""; // this is semester
 
-    <div id="modal-remarks" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-remarks')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-comments-alt"></i> Teachers Remarks</h2>
-            <div id="remarks-target-container"></div>
-        </div>
-    </div>
-
-    <div id="modal-homework" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-homework')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-book-reader"></i>Homework</h2>
-            <div id="homework-target-container"></div>
-        </div>
-    </div>
-
-    <div id="modal-assignments" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-assignments')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-project-diagram"></i> Assignments</h2>
-            <div id="assignments-target-container"></div>
-        </div>
-    </div>
-
-    <div id="modal-leave-request" class="modal-overlay" onclick="closeModalOnOverlay(event, this)">
-        <div class="modal-container">
-            <button class="close-modal" onclick="closeModal('modal-leave-request')">&times;</button>
-            <h2 class="popup-title"><i class="fas fa-plane-departure"></i> Leave Application</h2>
-            <!-- Inside your Leave Request modal/section -->
-<div class="form-group">
-    <label for="medicalRecord">Upload Medical Record (PDF/Image):</label>
-    <input type="file" id="medicalRecord" accept=".pdf, .jpg, .png">
-    <button type="button" onclick="uploadMedicalRecord()">Upload File</button>
-    <p id="uploadStatus"></p>
-</div>
-            <form id="leaveApplicationForm" style="margin-bottom: 25px; background: #f1f5f9; padding: 15px; border-radius: 8px;">
-                <div class="edit-grid" style="grid-template-columns: 1fr;">
-                    <div class="edit-group">
-                        <label style="color:var(--text-dark); font-weight:600;">Reason for Leave Statement</label>
-                        <input type="text" id="leave-reason" placeholder="e.g., Medical Concerns / Urgent Family Commits" required>
-                    </div>
-                    <div class="edit-grid" style="grid-template-columns: 1fr 1fr; margin-top: 12px; gap: 15px;">
-                        <div class="edit-group"><label style="color:var(--text-dark); font-weight:600;">Effective From</label><input type="date" id="leave-start" required></div>
-                        <div class="edit-group"><label style="color:var(--text-dark); font-weight:600;">Effective To</label><input type="date" id="leave-end" required></div>
-                    </div>
-                </div>
-                <button type="submit" class="save-btn" style="margin-top:15px; background-color: var(--primary-blue);">File Leave Request</button>
-            </form>
-
-            <h3 style="font-size:15px; color:var(--dark-slate); margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:6px;"><i class="fas fa-history"></i> Filed Exemption History Tracking</h3>
-            <div id="leave-history-target">
-                <p style="color:var(--text-muted); font-style:italic; text-align:center;">Assembling record tracking nodes...</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="sosNoticeModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 99999; padding: 20px;">
-        <div style="background: white; border-radius: 16px; width: 100%; max-width: 550px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); overflow: hidden; border: 3px solid #dc3545; animation: sosPulse 0.3s ease-out;">
-            <div style="background: #dc3545; color: white; padding: 20px; display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-exclamation-triangle fa-2x" style="animation: blinker 1s linear infinite;"></i>
-                <div>
-                    <h2 style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">EMERGENCY BROADCAST</h2>
-                    <p id="sos-timestamp" style="margin: 2px 0 0 0; font-size: 11px; opacity: 0.8;"></p>
-                </div>
-            </div>
-            <div style="padding: 24px;">
-                <h3 id="sos-title" style="margin: 0 0 12px 0; color: #1e293b; font-size: 20px; font-weight: 700;"></h3>
-                <p id="sos-body" style="margin: 0 0 20px 0; color: #475569; font-size: 14px; line-height: 1.6; white-space: pre-wrap;"></p>
-                <button onclick="acknowledgeSosNotice()" style="background: #1e293b; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; width: 100%; transition: background 0.2s;">
-                    Acknowledge & Dismiss
-                </button>
-            </div>
-        </div>
-    </div>
+window.onload = function() {
+    currentStudentRoll = localStorage.getItem('currentStudentRoll');
+    if(!currentStudentRoll) {
+        currentStudentRoll = prompt("Enter your Roll Number to view dashboard:");
+        localStorage.setItem('currentStudentRoll', currentStudentRoll);
+    }
     
+    if (!currentStudentRoll || currentStudentRoll.trim() === "") {
+        alert("Session verification failure! Booting to primary portal.");
+        window.location.href = "./index.html";
+        return;
+    }
+    currentStudentRoll = currentStudentRoll.trim();
 
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDq3sT7R3QL6oA8NTp7sBkV6uWNESzjmko",
-        authDomain: "studentinfo-7b36d.firebaseapp.com",
-        databaseURL: "https://studentinfo-7b36d-default-rtdb.firebaseio.com",
-        projectId: "studentinfo-7b36d",
-        storageBucket: "studentinfo-7b36d.firebasestorage.app",
-        messagingSenderId: "10133236572",
-        appId: "1:10133236572:web:28714298efdb380d692f99",
-        measurementId: "G-PFXBVTTHHV"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    let currentStudentRoll = localStorage.getItem('currentStudentRoll') || localStorage.getItem('studentRollNumber') || localStorage.getItem('studentRoll') || "";
-    let studentDept = "";
-    let studentYear = "";
-
-    window.onload = function() {
-        if (!currentStudentRoll || currentStudentRoll.trim() === "") {
-            alert("Session verification failure! Booting to primary portal.");
-            window.location.href = "./index.html";
-            return;
+    db.ref('students/' + currentStudentRoll).on('value', snapshot => {
+        if(snapshot.exists()) {
+            const data = snapshot.val();
+            studentDept = data.department || "";
+            studentYear = data.semester || data.year || ""; // FIXED: use semester
+            document.getElementById("welcomeMessage").innerText = `Welcome Back, ${data.fullName || 'Student'}`;
+            document.getElementById("card-name").innerText = data.fullName || "--";
+            document.getElementById("card-roll").innerText = currentStudentRoll;
+            document.getElementById("card-dept").innerText = studentDept || "--";
+            document.getElementById("card-year").innerText = studentYear || "--";
+            document.getElementById("card-cgpa").innerText = data.cgpa || "0.00";
+            document.getElementById("dossier-target").innerHTML = `
+                <div class="data-item"><h3>Full Name</h3><p>${data.fullName || '--'}</p></div>
+                <div class="data-item"><h3>Father/Mother Name</h3><p>${data.fatherName || '--'}</p></div>
+                <div class="data-item"><h3>Age</h3><p>${data.age || '--'} Years Old</p></div>
+                <div class="data-item"><h3>Academic Department</h3><p>${studentDept || '--'}</p></div>
+                <div class="data-item"><h3>Semester</h3><p>${studentYear || '--'}</p></div>
+                <div class="data-item"><h3>CGPA Matrix</h3><p>${data.cgpa || '0.00'}</p></div>
+                <div class="data-item"><h3>Mobile Number</h3><p>${data.mobile || '--'}</p></div>`;
+            document.getElementById("edit-password").value = data.password || "";
+            document.getElementById("edit-fullName").value = data.fullName || "";
+            document.getElementById("edit-fatherName").value = data.fatherName || "";
+            document.getElementById("edit-age").value = data.age || "";
+            document.getElementById("edit-department").value = studentDept;
+            document.getElementById("edit-year").value = studentYear;
+            document.getElementById("edit-cgpa").value = data.cgpa || "";
+            document.getElementById("edit-mobile").value = data.mobile || "";
+            loadAllStudentData();
+        } else {
+            alert("Roll reference data not discovered!");
+            logout();
         }
-        
-        currentStudentRoll = currentStudentRoll.trim();
+    });
+};
 
-        // Core Profile Sync Routine
-        database.ref('students/' + currentStudentRoll).on('value', snapshot => {
+function loadAllStudentData() {
+    // 1. LOAD MARKS
+    db.ref('marks/' + currentStudentRoll).on('value', snapshot => {
+        const target = document.getElementById("marks-target-container");
+        if(snapshot.exists()) {
+            let html = "";
+            snapshot.forEach(child => {
+                let m = child.val();
+                html += `<div class="data-item"><h3>${m.subject} - ${m.examination}</h3><p><strong>Marks:</strong> ${m.marksObtained} / ${m.marksMax}</p><span class="meta-span">Graded on ${m.date}</span></div>`;
+            });
+            target.innerHTML = html;
+        } else {
+            target.innerHTML = `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No marks added yet by admin.</p>`;
+        }
+    });
+
+    // 2. LOAD PERSONAL REMARKS + GLOBAL NOTIFICATIONS
+    let remarksHtml = "";
+    db.ref('remarks/' + currentStudentRoll).on('value', snapshot => {
+        remarksHtml = "";
+        if(snapshot.exists()) {
+            snapshot.forEach(child => {
+                let r = child.val();
+                remarksHtml += `<div class="data-item"><h3>${r.title}</h3><p>${r.content}</p><span class="meta-span">By: ${r.instructor || 'Admin'}</span></div>`;
+            });
+        }
+        loadGlobalNotices();
+    });
+
+    function loadGlobalNotices(){
+        db.ref('remarks/all').on('value', snapshot => {
+            let html = remarksHtml;
             if(snapshot.exists()) {
-                const data = snapshot.val();
-                studentDept = data.department || "";
-                studentYear = data.year || ""; 
-
-                // Render Core Dashboard Cards
-                document.getElementById("welcomeMessage").innerText = `Welcome Back, ${data.fullName || 'Student'}`;
-                document.getElementById("card-name").innerText = data.fullName || "--";
-                document.getElementById("card-roll").innerText = currentStudentRoll;
-                document.getElementById("card-dept").innerText = studentDept || "--";
-                document.getElementById("card-year").innerText = studentYear || "--";
-                document.getElementById("card-cgpa").innerText = data.cgpa || "0.00";
-
-                // Render Dossier Detailed Summary view
-                document.getElementById("dossier-target").innerHTML = `
-                    <div class="data-item"><h3>Full Name</h3><p>${data.fullName || '--'}</p></div>
-                    <div class="data-item"><h3>Father/Mother Name</h3><p>${data.fatherName || '--'}</p></div>
-                    <div class="data-item"><h3>Age</h3><p>${data.age || '--'} Years Old</p></div>
-                    <div class="data-item"><h3>Academic Department</h3><p>${studentDept || '--'}</p></div>
-                    <div class="data-item"><h3>Year/Semester</h3><p>${studentYear || '--'}</p></div>
-                    <div class="data-item"><h3>CGPA Matrix</h3><p>${data.cgpa || '0.00'}</p></div>
-                    <div class="data-item"><h3>Mobile Number</h3><p>${data.mobile || '--'}</p></div>
-                    <div class="data-item"><h3>Gender</h3><p>${data.gender || '--'}</p></div>
-                    <div class="data-item"><h3>Marital Status</h3><p>${data.maritalStatus || '--'}</p></div>
-                `;
-
-                // Set Default Values for Form Editing
-                document.getElementById("edit-password").value = data.password || "";
-                document.getElementById("edit-fullName").value = data.fullName || "";
-                document.getElementById("edit-fatherName").value = data.fatherName || "";
-                document.getElementById("edit-age").value = data.age || "";
-                document.getElementById("edit-department").value = studentDept;
-                document.getElementById("edit-year").value = studentYear;
-                document.getElementById("edit-cgpa").value = data.cgpa || "";
-                document.getElementById("edit-mobile").value = data.mobile || "";
-
-                // Stream Data Dependencies Fetches
-                fetchAcademicRecords();
-            } else {
-                alert("Roll reference data not discovered inside active node channels!");
-                logout();
+                snapshot.forEach(child => {
+                    let n = child.val();
+                    html += `<div class="data-item" style="border-left-color:#e67e22;"><h3>[ANNOUNCEMENT] ${n.title}</h3><p>${n.content}</p><span class="meta-span">By: ${n.instructor} on ${n.date}</span></div>`;
+                });
             }
+            document.getElementById("remarks-target-container").innerHTML = html || `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No notifications yet.</p>`;
         });
+    }
 
-        // ── LIVE REAL-TIME SOS INTERCEPT ENGINE ──
-        database.ref('globalNoticeboard').on('child_added', snapshot => {
-            const notice = snapshot.val();
-            const noticeId = snapshot.key;
-
-            if (notice.targetAudience === "All" || (studentDept && notice.targetAudience.toUpperCase() === studentDept.toUpperCase())) {
-                if (sessionStorage.getItem(`dismissed_sos_${noticeId}`) !== 'true') {
-                    document.getElementById("sos-title").innerText = notice.title;
-                    document.getElementById("sos-body").innerText = notice.content;
-                    document.getElementById("sos-timestamp").innerText = `Published: ${notice.timestamp}`;
-                    
-                    document.getElementById("sosNoticeModal").dataset.activeNoticeId = noticeId;
-                    document.getElementById("sosNoticeModal").style.display = "flex";
+    // 3. LOAD HOMEWORK - FILTER BY DEPT + SEM
+    db.ref('homework').on('value', snapshot => {
+        const target = document.getElementById("homework-target-container");
+        if(snapshot.exists()) {
+            let html = "";
+            snapshot.forEach(child => {
+                let h = child.val();
+                if( (h.department == "" || h.department == studentDept) && (h.semester == "" || h.semester == studentYear) ){
+                    html += `<div class="data-item"><h3>${h.subject} - Due: ${h.deadline}</h3><p>${h.content}</p><span class="meta-span">By: ${h.instructor}</span></div>`;
                 }
-            }
-        });
-    };
-
-    function acknowledgeSosNotice() {
-        const modal = document.getElementById("sosNoticeModal");
-        const activeId = modal.dataset.activeNoticeId;
-        if(activeId) {
-            sessionStorage.setItem(`dismissed_sos_${activeId}`, 'true');
+            });
+            target.innerHTML = html || `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No homework posted yet.</p>`;
+        } else {
+            target.innerHTML = `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No homework posted yet.</p>`;
         }
-        modal.style.display = "none";
-    }
-
-    function checkAcademicMatch(savedSemester) {
-        if (!savedSemester || !studentYear) return false;
-        let semStr = savedSemester.toLowerCase();
-        let yrStr = studentYear.toLowerCase();
-        
-        if (yrStr.includes("1st year") && (semStr.includes("1st semester") || semStr.includes("2nd semester") || semStr.includes("semester 1") || semStr.includes("semester 2"))) return true;
-        if (yrStr.includes("2nd year") && (semStr.includes("3rd semester") || semStr.includes("4th semester") || semStr.includes("semester 3") || semStr.includes("semester 4"))) return true;
-        if (yrStr.includes("3rd year") && (semStr.includes("5th semester") || semStr.includes("6th semester") || semStr.includes("semester 5") || semStr.includes("semester 6"))) return true;
-        
-        return semStr.includes(yrStr) || yrStr.includes(semStr);
-    }
-
-    function fetchAcademicRecords() {
-        // 1. Unified Student Evaluation Marks Loader
-        database.ref('marks/' + currentStudentRoll).on('value', snapshot => {
-            const target = document.getElementById("marks-target-container");
-            if(snapshot.exists()) {
-                let html = "";
-                snapshot.forEach(child => {
-                    let m = child.val();
-                    let secured = m.marksObtained !== undefined ? m.marksObtained : m.obtained;
-                    let outOf = m.marksMax !== undefined ? m.marksMax : m.max;
-                    let examLabel = m.examination || m.examType || "Assessment Component";
-                    let pct = (parseFloat(secured) / parseFloat(outOf) * 100).toFixed(1);
-                    html += `
-                        <div class="data-item">
-                            <h3>${m.subject} — <span style="color:var(--primary-blue);">${examLabel}</span></h3>
-                            <p><strong>Score Secured:</strong> ${secured} / ${outOf} (${pct}%)</p>
-                            <span class="meta-span"><i class="far fa-user"></i> Evaluator: ${m.instructor || m.evaluatedBy || 'Faculty'} | <i class="far fa-calendar-alt"></i> Date: ${m.date || m.dateTested || '--'}</span>
-                        </div>`;
-                });
-                target.innerHTML = html;
-            } else {
-                target.innerHTML = `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No evaluation test metrics found.</p>`;
-            }
-        });
-
-        // 2. Behavioral Remarks Sync node
-        database.ref('remarks/' + currentStudentRoll).on('value', snapshot => {
-            const target = document.getElementById("remarks-target-container");
-            if(snapshot.exists()) {
-                let html = "";
-                snapshot.forEach(child => {
-                    let r = child.val();
-                    let color = r.severity === 'Critical' ? '#dc3545' : 'var(--primary-blue)';
-                    html += `
-                        <div class="data-item" style="border-left-color: ${color};">
-                            <h3 style="color:${color};"><i class="fas fa-exclamation-circle"></i> ${r.title}</h3>
-                            <p>${r.content}</p>
-                            <span class="meta-span"><i class="far fa-user"></i> Logged By: ${r.instructor || 'Faculty Member'}</span>
-                        </div>`;
-                });
-                target.innerHTML = html;
-            } else {
-                target.innerHTML = `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">Your behavioral file is currently completely clear.</p>`;
-            }
-        });
-
-        // 3. Homework Tasks Tracker
-        database.ref('homework').on('value', snapshot => {
-            const target = document.getElementById("homework-target-container");
-            let html = "";
-            let count = 0;
-
-            if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    let h = child.val();
-                    if(h.department === studentDept && checkAcademicMatch(h.semester)) {
-                        count++;
-                        html += `
-                            <div class="data-item">
-                                <h3>Course Module: ${h.subject}</h3>
-                                <p><strong>Challenge Details:</strong> ${h.content}</p>
-                                <p style="font-size:13px; margin-top:5px; color:#c0392b;"><strong><i class="far fa-clock"></i> Deadline:</strong> ${h.deadline || 'N/A'}</p>
-                                <span class="meta-span"><i class="far fa-user"></i> Instructor: ${h.instructor || 'Instructor'}</span>
-                            </div>`;
-                    }
-                });
-            }
-            target.innerHTML = count > 0 ? html : `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No active homework tasks listed.</p>`;
-        });
-
-        // 4. Assignments Modules Track
-        database.ref('assignments').on('value', snapshot => {
-            const target = document.getElementById("assignments-target-container");
-            let html = "";
-            let count = 0;
-
-            if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    let a = child.val();
-                    if(a.department === studentDept && checkAcademicMatch(a.semester)) {
-                        count++;
-                        html += `
-                            <div class="data-item">
-                                <h3>Project Code: <span style="color:var(--primary-blue);">${a.code || '---'}</span></h3>
-                                <p><strong>Deliverables:</strong> ${a.content}</p>
-                                <p style="font-size:13px; margin-top:4px;"><strong>Weightage:</strong> ${a.weightage || '0'} Points</p>
-                                <span class="meta-span"><i class="far fa-user"></i> Coordinator: ${a.instructor || 'Academic Office'}</span>
-                            </div>`;
-                    }
-                });
-            }
-            target.innerHTML = count > 0 ? html : `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No active project modules deployed.</p>`;
-        });
-
-        // 5. Personal Absence Exemption Leave Application Realtime Listener
-        database.ref('leaveApplications').on('value', snapshot => {
-            const target = document.getElementById("leave-history-target");
-            let html = "";
-            let entriesFound = false;
-
-            if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    let app = child.val();
-                    if(app.studentRoll === currentStudentRoll) {
-                        entriesFound = true;
-                        let statusColor = "#ef4444"; 
-                        if(app.status === "Pending Approval") statusColor = "#f59e0b"; 
-                        if(app.status === "Approved / Excused") statusColor = "#10b981"; 
-                        
-                        html += `
-                            <div class="data-item" style="background:#fff; border-left:4px solid ${statusColor};">
-                                <h4 style="margin:0 0 4px 0; font-size:14px;">Reason: ${app.reason}</h4>
-                                <p style="margin:2px 0; font-size:12px; color:var(--text-muted);">Duration Vector: <strong>${app.startDate}</strong> to <strong>${app.endDate}</strong></p>
-                                <p style="margin:6px 0 0 0; font-size:12px;">Status Guard: <span style="color:${statusColor}; font-weight:700;">${app.status}</span></p>
-                            </div>`;
-                    }
-                });
-            }
-            target.innerHTML = entriesFound ? html : `<p style="color:#aaa; font-style:italic; text-align:center; padding:15px;">No leave logs submitted during this curriculum track.</p>`;
-        });
-    }
-
-    // Submit Changes Listener Form Entry
-    document.getElementById("editForm").addEventListener("submit", e => {
-        e.preventDefault();
-        const updatedFields = {
-            password: document.getElementById("edit-password").value,
-            fullName: document.getElementById("edit-fullName").value,
-            fatherName: document.getElementById("edit-fatherName").value,
-            age: document.getElementById("edit-age").value,
-            mobile: document.getElementById("edit-mobile").value
-        };
-
-        database.ref('students/' + currentStudentRoll).update(updatedFields)
-        .then(() => {
-            alert("Account settings records successfully synchronized!");
-            closeModal('modal-info-changes');
-        })
-        .catch(err => alert("Cloud transactional save fault: " + err.message));
     });
 
-    // Leave Request Submission Form Controller
-    document.getElementById("leaveApplicationForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        if(!currentStudentRoll) return;
-
-        const nameElement = document.getElementById("card-name").innerText;
-        const deptElement = document.getElementById("card-dept").innerText;
-
-        const payload = {
-            studentRoll: currentStudentRoll,
-            studentName: nameElement,
-            department: deptElement,
-            reason: document.getElementById("leave-reason").value.trim(),
-            startDate: document.getElementById("leave-start").value,
-            endDate: document.getElementById("leave-end").value,
-            status: "Pending Approval",
-            submittedOn: new Date().toLocaleString()
-        };
-
-        database.ref('leaveApplications').push(payload)
-        .then(() => {
-            alert("Absence request submitted successfully to the Admin Portal review desk!");
-            document.getElementById("leaveApplicationForm").reset();
-        })
-        .catch(err => alert("Transmission failed: " + err.message));
+    // 4. LOAD ASSIGNMENTS - FILTER BY DEPT + SEM
+    db.ref('assignments').on('value', snapshot => {
+        const target = document.getElementById("assignments-target-container");
+        if(snapshot.exists()) {
+            let html = "";
+            snapshot.forEach(child => {
+                let a = child.val();
+                if( (a.department == "" || a.department == studentDept) && (a.semester == "" || a.semester == studentYear) ){
+                    html += `<div class="data-item"><h3>${a.title} - Due: ${a.deadline}</h3><p>${a.content}</p><span class="meta-span">By: ${a.instructor}</span></div>`;
+                }
+            });
+            target.innerHTML = html || `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No assignments posted yet.</p>`;
+        } else {
+            target.innerHTML = `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No assignments posted yet.</p>`;
+        }
     });
 
-    // Modal Display Modifiers UI
-    function openModal(id) { document.getElementById(id).style.display = "flex"; }
-    function closeModal(id) { document.getElementById(id).style.display = "none"; }
-    function closeModalOnOverlay(e, element) { if(e.target === element) element.style.display = "none"; }
+    // 5. LOAD LEAVE HISTORY
+    db.ref('leaves/' + currentStudentRoll).on('value', snapshot => {
+        const target = document.getElementById("leave-history-target");
+        if(snapshot.exists()) {
+            let html = "";
+            snapshot.forEach(child => {
+                let l = child.val();
+                let statusColor = l.status == 'Approved' ? 'green' : l.status == 'Denied' ? 'red' : 'orange';
+                html += `<div class="data-item"><h3>${l.reason}</h3><p><strong>From:</strong> ${l.fromDate} <strong>To:</strong> ${l.toDate}</p><span class="meta-span" style="color:${statusColor}; font-weight:600;">Status: ${l.status || 'Pending'}</span></div>`;
+            });
+            target.innerHTML = html;
+        } else {
+            target.innerHTML = `<p style="color:#aaa; font-style:italic; text-align:center; padding:20px;">No leave requests filed yet.</p>`;
+        }
+    });
+}
 
-    function logout() { 
-        localStorage.clear(); 
-        window.location.href = "./index.html"; 
-    }
-    </script>
+document.getElementById("editForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const updatedFields = {
+        password: document.getElementById("edit-password").value,
+        fullName: document.getElementById("edit-fullName").value,
+        fatherName: document.getElementById("edit-fatherName").value,
+        age: document.getElementById("edit-age").value,
+        mobile: document.getElementById("edit-mobile").value
+    };
+    db.ref('students/' + currentStudentRoll).update(updatedFields)
+    .then(() => { alert("Account settings updated!"); closeModal('modal-info-changes'); })
+    .catch(err => alert("Save fault: " + err.message));
+});
+
+document.getElementById("leaveApplicationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const fromDate = document.getElementById("leave-start").value;
+    const toDate = document.getElementById("leave-end").value;
+    const reason = document.getElementById("leave-reason").value.trim();
+
+    if(!fromDate || !toDate || !reason) return alert("Fill all fields");
+
+    db.ref('leaves/' + currentStudentRoll).push({
+        fromDate: fromDate,
+        toDate: toDate,
+        reason: reason,
+        status: "Pending"
+    })
+    .then(() => { 
+        alert("Leave request submitted!"); 
+        document.getElementById("leaveApplicationForm").reset(); 
+        closeModal('modal-leave-request');
+    })
+    .catch(err => alert("Transmission failed: " + err.message));
+});
+
+function openModal(id) { document.getElementById(id).style.display = "flex"; }
+function closeModal(id) { document.getElementById(id).style.display = "none"; }
+function closeModalOnOverlay(e, element) { if(e.target === element) element.style.display = "none"; }
+function logout() { localStorage.clear(); window.location.href = "./index.html"; }
+</script>
 </body>
 </html>

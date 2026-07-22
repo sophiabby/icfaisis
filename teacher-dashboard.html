@@ -5,890 +5,353 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Management Console - ICFAI University</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
     <style>
-        /* ── Core Dashboard Styles ── */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-
         :root {
             --primary: #e67e22;
-            --primary-dark: #d35400;
+            --dark-border: #111;
             --bg-light: #fdf5ee;
-            --dark-border: #111111;
-            --primary-blue: #0568be;
-            --text-muted: #666;
         }
+        body { display: flex; background: #2e68a1; min-height: 100vh; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-image: url('ICFAIimage.png'); background-size: cover; background-position: center; opacity: 0.08; }
 
-        body {
-            display: flex;
-            background: transparent;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background-image: url('ICFAIimage.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        /* Sidebar Navigation Panel */
-        .sidebar {
-            width: 280px;
-            background: #ffffff;
-            border-right: 3px solid var(--dark-border);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px 20px;
-            position: fixed;
-            height: 100vh;
-            z-index: 100;
-        }
-
+        .sidebar { width: 280px; background: #a86565; border-right: 3px solid var(--dark-border); display: flex; flex-direction: column; justify-content: space-between; padding: 30px 20px; position: fixed; height: 100vh; z-index: 100; }
         .brand { text-align: center; margin-bottom: 25px; }
         .brand h2 { color: var(--primary); font-size: 22px; font-weight: 800; text-transform: uppercase; }
-        .brand p { font-size: 11px; letter-spacing: 1px; color: #777; margin-top: 2px; }
-
-        .instructor-card {
-            background: var(--bg-light);
-            border: 2px solid var(--dark-border);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-        .instructor-card h4 { font-size: 12px; color: #777; text-transform: uppercase; }
-        .instructor-card p { font-weight: 700; font-size: 15px; color: #222; margin: 2px 0; }
-
+        .instructor-card { background: var(--bg-light); border: 2px solid var(--dark-border); padding: 15px; border-radius: 8px; margin-bottom: 25px; }
         .menu-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .menu-links li { border-radius: 6px; overflow: hidden; transition: all 0.2s; }
-        .menu-links li a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: #444;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .menu-links li:hover, .menu-links li.active {
-            background: var(--primary);
-        }
-        .menu-links li:hover a, .menu-links li.active a {
-            color: white !important;
-        }
+        .menu-links li a { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: #444; text-decoration: none; font-weight: 600; font-size: 14px; }
+        .menu-links li:hover, .menu-links li.active { background: var(--primary); }
+        .menu-links li:hover a, .menu-links li.active a { color: white !important; }
+        .btn-logout { background:; color: #d9534f; border: 2px solid var(--dark-border); padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .btn-logout {
-            background: #fff0f0;
-            color: #d9534f;
-            border: 2px solid var(--dark-border);
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-logout:hover { background: #d9534f; color: white; }
-
-        /* Content Panes Workspace */
         .main-workspace { flex-grow: 1; margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
         .view-panel { display: none; }
-        .view-panel.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-
-        .panel-header { margin-bottom: 25px; background: rgba(255,255,255,0.9); padding: 15px 20px; border-radius: 8px; border: 2px solid var(--dark-border); }
-        .panel-header h3 { font-size: 18px; font-weight: 700; }
-        .panel-header p { font-size: 12px; color: #666; }
-
-        .panel-card {
-            background: rgba(255, 255, 255, 0.96);
-            border: 3px solid var(--dark-border);
-            box-shadow: 6px 6px 0 var(--dark-border);
-            padding: 30px;
-            border-radius: 12px;
-        }
-
-        /* Form Layout Grid Components */
+        .view-panel.active { display: block; }
+        .panel-header { margin-bottom: 25px; background:; padding: 15px 20px; border-radius: 8px; border: 2px solid var(--dark-border); }
+        .panel-card { background:; border: 3px solid var(--dark-border); box-shadow: 6px 6px 0 var(--dark-border); padding: 30px; border-radius: 12px; margin-bottom: 20px; }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group.full-width { grid-column: span 2; }
-
         label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #333; }
-        input, select, textarea {
-            padding: 11px 14px;
-            border: 2px solid var(--dark-border);
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            background: #fff;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
-        input:disabled, select:disabled { background: #f5f5f5; cursor: not-allowed; opacity: 0.7; }
-
-        /* Autocomplete Suggestion Dropdowns Styling */
-        .suggestions-box {
-            position: absolute;
-            top: 65px; left: 0; right: 0;
-            background: white;
-            border: 2px solid var(--dark-border);
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            max-height: 180px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .suggestion-item { padding: 10px 14px; cursor: pointer; font-size: 13px; border-bottom: 1px solid #eee; }
-        .suggestion-item:hover { background: var(--bg-light); color: var(--primary); font-weight: 600; }
-
-        .student-preview-badge {
-            background: var(--bg-light);
-            border: 2px dashed var(--primary);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-        }
-
-        .btn-action {
-            background: var(--primary);
-            color: white;
-            padding: 13px 25px;
-            border: 2px solid var(--dark-border);
-            box-shadow: 4px 4px 0 var(--dark-border);
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .btn-action:active { transform: translate(1px, 1px); box-shadow: 3px 3px 0 var(--dark-border); }
-        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: 2px 2px 0 var(--dark-border); }
-
-        .mobile-header { display: none; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Responsive Media Breakdown queries */
-        @media screen and (max-width: 992px) {
-            .sidebar { transform: translateX(-280px); transition: transform 0.3s ease; }
-            .main-workspace { margin-left: 0; width: 100%; padding: 20px; padding-top: 80px; }
-            .mobile-header { display: flex; position: fixed; top: 0; left: 0; right: 0; height: 60px; background: white; border-bottom: 2px solid var(--dark-border); align-items: center; justify-content: space-between; padding: 0 20px; z-index: 200; }
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group.full-width { grid-column: span 1; }
-        }
-
-        /* ── Realtime Emergency SOS Modal Layout Styles ── */
-        .sos-modal-overlay {
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(15, 23, 42, 0.88); 
-            backdrop-filter: blur(8px); 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 99999; 
-            padding: 20px;
-        }
-
-        .sos-modal-box {
-            background: #ffffff; 
-            border-radius: 16px; 
-            width: 100%; 
-            max-width: 550px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); 
-            overflow: hidden; 
-            border: 3px solid #dc3545; 
-            animation: sosPulseScale 0.3s ease-out;
-        }
-
-        .sos-modal-header {
-            background: #dc3545; 
-            color: white; 
-            padding: 22px; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px;
-        }
-
-        .sos-modal-header h2 {
-            margin: 0; 
-            font-size: 19px; 
-            font-weight: 800; 
-            letter-spacing: 0.5px;
-        }
-
-        .sos-modal-header p {
-            margin: 3px 0 0 0; 
-            font-size: 11px; 
-            opacity: 0.85;
-        }
-
-        .sos-modal-body {
-            padding: 25px;
-        }
-
-        #sos-title {
-            margin: 0 0 12px 0; 
-            color: #1e293b; 
-            font-size: 21px; 
-            font-weight: 700;
-        }
-
-        #sos-body {
-            margin: 0 0 24px 0; 
-            color: #475569; 
-            font-size: 14px; 
-            line-height: 1.6; 
-            white-space: pre-wrap;
-        }
-
-        .sos-modal-body button {
-            background: #1e293b; 
-            color: white; 
-            border: none; 
-            padding: 14px; 
-            border-radius: 8px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            font-size: 14px; 
-            width: 100%; 
-            transition: background 0.2s;
-        }
-
-        .sos-modal-body button:hover {
-            background: #0f172a;
-        }
-
-        .sos-blink {
-            animation: sosBlinkAnimation 1s linear infinite;
-        }
-
-        @keyframes sosPulseScale {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes sosBlinkAnimation {
-            50% { opacity: 0.2; }
-        }
+        input, select, textarea { padding: 11px 14px; border: 2px solid var(--dark-border); border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+        input:disabled { background: #e2e8f0; }
+        .btn-action { background: var(--primary); color: white; padding: 13px 25px; border: 2px solid var(--dark-border); box-shadow: 4px 4px 0 var(--dark-border); border-radius: 8px; font-weight: 700; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; font-size: 13px; }
+        th { background: #f1f5f9; }
+        .btn-approve { background: #16a34a; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
+        .btn-deny { background: #dc2626; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="mobile-header">
-    <div style="font-weight: 800; color: var(--primary);">ICFAI Faculty Portal</div>
-    <button class="menu-toggle" onclick="toggleMobileSidebar()"><i class="fas fa-bars"></i></button>
-</div>
-
-<div class="sidebar" id="sidebarNode">
+<div class="sidebar">
     <div>
         <div class="brand">
             <h2><i class="fa-solid fa-shield-halved"></i> Faculty Hub</h2>
-            <p>Academic Control Center</p>
         </div>
-
         <div class="instructor-card">
             <h4>Welcome Back,</h4>
             <p id="instructorName">Loading Professor...</p>
-            <span style="font-size: 11px; color:#555;" id="instructorIdDisplay">ID: ----</span>
         </div>
-
         <ul class="menu-links">
-            <li class="active" id="menu-marks" onclick="switchView('marks', this)">
-                <a href="javascript:void(0)"><i class="fa-solid fa-marker"></i> Student Marks</a>
-            </li>
-            <li id="menu-remarks" onclick="switchView('remarks', this)">
-                <a href="javascript:void(0)"><i class="fa-solid fa-bullhorn"></i> Faculty Remarks</a>
-            </li>
-            <li id="menu-homework" onclick="switchView('homework', this)">
-                <a href="javascript:void(0)"><i class="fa-solid fa-book-open"></i> Daily Homework</a>
-            </li>
-            <li id="menu-assignments" onclick="switchView('assignments', this)">
-                <a href="javascript:void(0)"><i class="fa-solid fa-scroll"></i> Assignments Tracker</a>
-            </li>
+            <li class="active" id="menu-marks" onclick="switchView('marks', this)"><a href="#"><i class="fa-solid fa-marker"></i> Grades & Marks</a></li>
+            <li id="menu-notification" onclick="switchView('notification', this)"><a href="#"><i class="fa-solid fa-bullhorn"></i> Notification</a></li>
+            <li id="menu-homework" onclick="switchView('homework', this)"><a href="#"><i class="fa-solid fa-book-open"></i> Homework & Tasks</a></li>
+            <li id="menu-assignments" onclick="switchView('assignments', this)"><a href="#"><i class="fa-solid fa-scroll"></i> Assignments</a></li>
+            <li id="menu-leaves" onclick="switchView('leaves', this)"><a href="#"><i class="fa-solid fa-envelope-open-text"></i> Leave Requests</a></li>
         </ul>
     </div>
-
     <button class="btn-logout" onclick="triggerLogout()"><i class="fa-solid fa-power-off"></i> Terminate Session</button>
 </div>
 
 <div class="main-workspace">
     
     <div id="view-marks" class="view-panel active">
-        <div class="panel-header">
-            <h3><i class="fa-solid fa-marker"></i> Student Marks Distribution Hub</h3>
-            <p>Publish academic scores directly to active student profiles</p>
-        </div>
-
+        <div class="panel-header"><h3><i class="fa-solid fa-marker"></i> Student Grading</h3><p>Publish marks to student. Shows in student "Grades and Marks"</p></div>
         <div class="panel-card">
-            <form id="marksForm" onsubmit="handleFormSubmission('marks')">
+            <form id="marksForm" onsubmit="handleSubmit('marks')">
+                <div class="form-group full-width">
+                    <label>Search Student by Name or Roll</label>
+                    <input type="text" id="studentSearch" placeholder="Type name or roll... e.g. 2244" oninput="filterStudents()">
+                </div>
+                <div class="form-group full-width">
+                    <label>Student</label>
+                    <select id="marksStudentSelect" required onchange="fillStudentDetails()">
+                        <option value="">--Select Student--</option>
+                    </select>
+                </div>
                 <div class="form-grid">
-                    <div class="form-group">
-                        <label>Target Academic Department*</label>
-                        <select id="marksDept" required onchange="handleMarksFilterChange()">
-                            <option value="">-- Select Department --</option>
-                            <option value="BCA">BCA</option>
-                            <option value="BBA">BBA</option>
-                            <option value="BBA HT">BBA HT</option>
-                            <option value="BA">BA</option>
-                            <option value="BSW">BSW</option>
-                            <option value="BCOM">BCOM</option>
-                            <option value="MBA">MBA</option>
-                            <option value="MCOM">MCOM</option>
-                            <option value="MSW">MSW</option>
-                            <option value="MA">MA</option>
-                            <option value="DOC">DOC</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Target Semester Period*</label>
-                        <select id="marksSem" required onchange="handleMarksFilterChange()">
-                            <option value="">-- Select Semester --</option>
-                            <option value="1st Semester">1st Semester</option>
-                            <option value="2nd Semester">2nd Semester</option>
-                            <option value="3rd Semester">3rd Semester</option>
-                            <option value="4th Semester">4th Semester</option>
-                            <option value="5th Semester">5th Semester</option>
-                            <option value="6th Semester">6th Semester</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="position: relative;">
-                        <label>Student Full Name*</label>
-                        <input type="text" id="marksStudentSearch" placeholder="Type name to lookup registered profiles..." required oninput="searchStudentByName()">
-                        <div id="studentSuggestions" class="suggestions-box"></div>
-                        <input type="hidden" id="marksStudentRoll">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Subject Curriculum Module*</label>
-                        <select id="marksSubject" required disabled>
-                            <option value="">-- Select Department & Semester First --</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Evaluation Title / Assessment Term*</label>
-                        <input type="text" id="marksExam" placeholder="e.g. Mid-Term Exam, Quiz 1" required disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Marks Obtained*</label>
-                        <input type="number" step="0.01" id="marksObtained" placeholder="e.g. 42" required disabled oninput="calculatePercentage()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Maximum Target Score*</label>
-                        <input type="number" step="0.01" id="marksMax" placeholder="e.g. 50" required disabled oninput="calculatePercentage()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Evaluation Date Stamp*</label>
-                        <input type="date" id="marksDate" required>
-                    </div>
+                    <div class="form-group"><label>Roll No</label><input type="text" id="marksRoll" disabled></div>
+                    <div class="form-group"><label>Department</label><input type="text" id="marksDept" disabled></div>
+                    <div class="form-group"><label>Semester</label><input type="text" id="marksSem" disabled></div>
+                    <div class="form-group"><label>Subject*</label><input type="text" id="marksSubject" required placeholder="e.g. C Programming"></div>
+                    <div class="form-group"><label>Score*</label><input type="number" step="0.01" id="marksObtained" required placeholder="0-100"></div>
+                    <div class="form-group"><label>Max Marks*</label><input type="number" step="0.01" id="marksMax" value="100" required></div>
+                    <div class="form-group"><label>Exam Type*</label><input type="text" id="marksExam" required placeholder="MidTerm/Final"></div>
+                    <div class="form-group"><label>Date</label><input type="date" id="marksDate" required></div>
                 </div>
-
-                <div id="studentPreviewCard" class="student-preview-badge" style="display: none;">
-                    <div>
-                        <strong>Selected Profile:</strong> <span id="previewName">None</span> <br>
-                        <strong>Roll Reference ID:</strong> <span id="previewRoll">N/A</span>
-                    </div>
-                    <div style="font-size: 14px;">
-                        Calculated Percentage Score: <span id="percentDisplay" style="font-weight: 800; color: var(--primary);">--</span>
-                    </div>
-                </div>
-
-                <button type="submit" id="marksSubmitBtn" class="btn-action" disabled><i class="fa-solid fa-paper-plane"></i> Deploy Marks Record</button>
+                <button type="submit" class="btn-action">Publish Marks</button>
             </form>
         </div>
     </div>
 
-    <div id="view-remarks" class="view-panel">
-        <div class="panel-header">
-            <h3><i class="fa-solid fa-bullhorn"></i> Behavioral Remarks Log</h3>
-            <p>Log professional behavioral performance observations</p>
-        </div>
+    <div id="view-notification" class="view-panel">
+        <div class="panel-header"><h3><i class="fa-solid fa-bullhorn"></i> Send Notification</h3></div>
         <div class="panel-card">
-            <form id="remarksForm" onsubmit="handleFormSubmission('remarks')">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Target Academic Department*</label>
-                        <select id="remarksDept" required onchange="handleRemarksFilterChange()">
-                            <option value="">-- Select Department --</option>
-                            <option value="BCA">BCA</option>
-                            <option value="BBA">BBA</option>
-                            <option value="BBA HT">BBA HT</option>
-                            <option value="BA">BA</option>
-                            <option value="BSW">BSW</option>
-                            <option value="BCOM">BCOM</option>
-                            <option value="MBA">MBA</option>
-                            <option value="MCOM">MCOM</option>
-                            <option value="MSW">MSW</option>
-                            <option value="MA">MA</option>
-                            <option value="DOC">DOC</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="position: relative;">
-                        <label>Student Full Name*</label>
-                        <input type="text" id="remarksStudentSearch" placeholder="Type student name..." required oninput="searchStudentByNameRemarks()">
-                        <div id="studentSuggestionsRemarks" class="suggestions-box"></div>
-                        <input type="hidden" id="remarksStudentRoll">
-                    </div>
-                    <div class="form-group">
-                        <label>Remark Header Title*</label>
-                        <input type="text" id="remarksTitle" placeholder="e.g. Class Discipline, Project Diligence" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Severity Alert Level*</label>
-                        <select id="remarksSeverity" required>
-                            <option value="General">General Performance advisory</option>
-                            <option value="Critical">Critical Academic Warning Alert</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Detailed Evaluation Remarks*</label>
-                        <textarea id="remarksContent" rows="4" required placeholder="Describe detailed behavior patterns..."></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="btn-action"><i class="fa-solid fa-paper-plane"></i> Deploy Remarks Entry</button>
+            <form id="notificationForm" onsubmit="handleSubmit('notification')">
+                <div class="form-group full-width"><label>Title*</label><input type="text" id="notifTitle" required></div>
+                <div class="form-group full-width"><label>Message*</label><textarea id="notifContent" rows="4" required></textarea></div>
+                <button type="submit" class="btn-action">Send Notification</button>
             </form>
+            <div id="notifList"></div>
         </div>
     </div>
 
+    <!-- FIXED HOMEWORK SECTION -->
     <div id="view-homework" class="view-panel">
-        <div class="panel-header">
-            <h3><i class="fa-solid fa-book-open"></i> Daily Homework Planner</h3>
-            <p>Deploy core course study preparation timelines</p>
-        </div>
+        <div class="panel-header"><h3><i class="fa-solid fa-book-open"></i> Post Homework & Tasks</h3></div>
         <div class="panel-card">
-            <form id="homeworkForm" onsubmit="handleFormSubmission('homework')">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Target Academic Department*</label>
-                        <select id="homeworkDept" required>
-                            <option value="">-- Select Department --</option>
-                            <option value="BCA">BCA</option>
-                            <option value="BBA">BBA</option>
-                            <option value="BBA HT">BBA HT</option>
-                            <option value="BA">BA</option>
-                            <option value="BSW">BSW</option>
-                            <option value="BCOM">BCOM</option>
-                            <option value="MBA">MBA</option>
-                            <option value="MCOM">MCOM</option>
-                            <option value="MSW">MSW</option>
-                            <option value="MA">MA</option>
-                            <option value="DOC">DOC</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Target Semester Period*</label>
-                        <select id="homeworkSem" required>
-                            <option value="">-- Select Semester --</option>
-                            <option value="1st Semester">1st Semester</option>
-                            <option value="2nd Semester">2nd Semester</option>
-                            <option value="3rd Semester">3rd Semester</option>
-                            <option value="4th Semester">4th Semester</option>
-                            <option value="5th Semester">5th Semester</option>
-                            <option value="6th Semester">6th Semester</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Subject Module Focus*</label>
-                        <input type="text" id="homeworkSubject" required placeholder="e.g. Business Economics">
-                    </div>
-                    <div class="form-group">
-                        <label>Submission Deadline Target*</label>
-                        <input type="date" id="homeworkDeadline" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Homework Topic Tasks & Deliverables*</label>
-                        <textarea id="homeworkText" rows="4" required placeholder="Describe task prompts..."></textarea>
-                    </div>
+            <form id="homeworkForm" onsubmit="handleSubmit('homework')">
+                <div class="form-group full-width">
+                    <label>Select Student*</label>
+                    <select id="hwStudentSelect" required><option value="">--Select Student--</option></select>
                 </div>
-                <button type="submit" class="btn-action"><i class="fa-solid fa-paper-plane"></i> Deploy Homework</button>
+                <div class="form-grid">
+                    <div class="form-group"><label>Subject*</label><input type="text" id="hwSubject" required placeholder="e.g. DBMS"></div>
+                    <div class="form-group"><label>Due Date*</label><input type="date" id="hwDueDate" required></div>
+                </div>
+                <div class="form-group full-width"><label>Task Description*</label><textarea id="hwDesc" rows="3" required placeholder="Write the homework/task here..."></textarea></div>
+                <button type="submit" class="btn-action">Post Homework</button>
             </form>
+            <h4 style="margin-top:25px;">Posted Homeworks</h4>
+            <table><thead><tr><th>Roll</th><th>Name</th><th>Subject</th><th>Task</th><th>Due Date</th></tr></thead><tbody id="hwTable"></tbody></table>
         </div>
     </div>
 
+    <!-- FIXED ASSIGNMENTS SECTION -->
     <div id="view-assignments" class="view-panel">
-        <div class="panel-header">
-            <h3><i class="fa-solid fa-scroll"></i> Assignments Tracker Matrix</h3>
-            <p>Deploy continuous evaluation grading projects</p>
-        </div>
+        <div class="panel-header"><h3><i class="fa-solid fa-scroll"></i> Post Assignments</h3></div>
         <div class="panel-card">
-            <form id="assignmentsForm" onsubmit="handleFormSubmission('assignments')">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Target Academic Department*</label>
-                        <select id="assignDept" required>
-                            <option value="">-- Select Department --</option>
-                            <option value="BCA">BCA</option>
-                            <option value="BBA">BBA</option>
-                            <option value="BBA HT">BBA HT</option>
-                            <option value="BA">BA</option>
-                            <option value="BSW">BSW</option>
-                            <option value="BCOM">BCOM</option>
-                            <option value="MBA">MBA</option>
-                            <option value="MCOM">MCOM</option>
-                            <option value="MSW">MSW</option>
-                            <option value="MA">MA</option>
-                            <option value="DOC">DOC</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Target Semester Period*</label>
-                        <select id="assignSem" required>
-                            <option value="">-- Select Semester --</option>
-                            <option value="1st Semester">1st Semester</option>
-                            <option value="2nd Semester">2nd Semester</option>
-                            <option value="3rd Semester">3rd Semester</option>
-                            <option value="4th Semester">4th Semester</option>
-                            <option value="5th Semester">5th Semester</option>
-                            <option value="6th Semester">6th Semester</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Assignment Code Identifier*</label>
-                        <input type="text" id="assignCode" required placeholder="e.g. ASG-BCA-401">
-                    </div>
-                    <div class="form-group">
-                        <label>Total Evaluation Weightage Points*</label>
-                        <input type="number" id="assignWeight" required placeholder="e.g. 50">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Instructions & Compliance Deliverables*</label>
-                        <textarea id="assignText" rows="4" required placeholder="Outline project instructions..."></textarea>
-                    </div>
+            <form id="assignmentForm" onsubmit="handleSubmit('assignment')">
+                <div class="form-group full-width">
+                    <label>Select Student*</label>
+                    <select id="asStudentSelect" required><option value="">--Select Student--</option></select>
                 </div>
-                <button type="submit" class="btn-action"><i class="fa-solid fa-paper-plane"></i> Deploy Assignment</button>
+                <div class="form-grid">
+                    <div class="form-group"><label>Assignment Title*</label><input type="text" id="asTitle" required placeholder="e.g. Mini Project"></div>
+                    <div class="form-group"><label>Last Date*</label><input type="date" id="asDueDate" required></div>
+                </div>
+                <div class="form-group full-width"><label>Description*</label><textarea id="asDesc" rows="3" required placeholder="Assignment details..."></textarea></div>
+                <button type="submit" class="btn-action">Post Assignment</button>
             </form>
+            <h4 style="margin-top:25px;">Posted Assignments</h4>
+            <table><thead><tr><th>Roll</th><th>Name</th><th>Title</th><th>Description</th><th>Last Date</th></tr></thead><tbody id="asTable"></tbody></table>
         </div>
+    </div>
+
+    <div id="view-leaves" class="view-panel">
+        <div class="panel-header"><h3><i class="fa-solid fa-envelope-open-text"></i> Leave Requests</h3></div>
+        <div class="panel-card"><table id="leaveTable"><tr><th>Roll</th><th>Name</th><th>Dept</th><th>From</th><th>To</th><th>Reason</th><th>Status</th><th>Action</th></tr></table></div>
     </div>
 
 </div>
 
-<!-- ── OVERRIDE EMERGENCY BROADCAST PANEL ── -->
-<div id="sosNoticeModal" class="sos-modal-overlay">
-    <div class="sos-modal-box">
-        <div class="sos-modal-header">
-            <i class="fas fa-exclamation-triangle fa-2x sos-blink"></i>
-            <div>
-                <h2>EMERGENCY BROADCAST</h2>
-                <p id="sos-timestamp"></p>
-            </div>
-        </div>
-        <div class="sos-modal-body">
-            <h3 id="sos-title"></h3>
-            <p id="sos-body"></p>
-            <button onclick="acknowledgeSosNotice()">Acknowledge & Dismiss</button>
-        </div>
-    </div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-    // ── Built-In JavaScript Logic ─────────────────────────────────
-    const firebaseConfig = {
-        apiKey: "AIzaSyDq3sT7R3QL6oA8NTp7sBkV6uWNESzjmko",
-        authDomain: "studentinfo-7b36d.firebaseapp.com",
-        databaseURL: "https://studentinfo-7b36d-default-rtdb.firebaseio.com",
-        projectId: "studentinfo-7b36d",
-        storageBucket: "studentinfo-7b36d.firebasestorage.app",
-        messagingSenderId: "10133236572",
-        appId: "1:10133236572:web:28714298efdb380d692f99",
-        measurementId: "G-PFXBVTTHHV"
-    };
+const firebaseConfig = {
+    apiKey: "AIzaSyDq3sT7R3QL6oA8NTp7sBkV6uWNESzjmko",
+    authDomain: "studentinfo-7b36d.firebaseapp.com",
+    databaseURL: "https://studentinfo-7b36d-default-rtdb.firebaseio.com",
+    projectId: "studentinfo-7b36d"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+let instructorName = "Faculty";
+let allStudents = [];
 
-    let globalStudentsList = [];
-    let instructorName = "Faculty Member";
+window.onload = function() {
+    instructorName = localStorage.getItem("currentTeacherName") || "Professor";
+    document.getElementById("instructorName").innerText = "Prof. " + instructorName;
+    document.getElementById('marksDate').valueAsDate = new Date();
+    
+    loadStudentsForDropdown();
+    loadLeaves();
+    loadNotifications();
+    loadHomeworks(); // NEW
+    loadAssignments(); // NEW
+}
 
-    window.onload = function() {
-        if (!localStorage.getItem('currentTeacherId')) {
-            alert("Session invalid! Booting to access screen.");
-            window.location.href = "index.html";
-            return;
-        }
+function loadStudentsForDropdown(){
+    db.ref('students').on('value', snap => {
+        allStudents = [];
+        let hwSel = document.getElementById('hwStudentSelect');
+        let asSel = document.getElementById('asStudentSelect');
+        hwSel.innerHTML = '<option value="">--Select Student--</option>';
+        asSel.innerHTML = '<option value="">--Select Student--</option>';
         
-        instructorName = localStorage.getItem("currentTeacherName") || "Professor";
-        document.getElementById("instructorName").innerText = "Prof. " + instructorName;
-        document.getElementById("instructorIdDisplay").innerText = "ID: " + localStorage.getItem("currentTeacherId");
-        
-        if(document.getElementById('marksDate')) {
-            document.getElementById('marksDate').valueAsDate = new Date();
-        }
-
-        database.ref('students').on('value', snapshot => {
-            globalStudentsList = [];
-            if (snapshot.exists()) {
-                snapshot.forEach(child => {
-                    let val = child.val();
-                    globalStudentsList.push({
-                        rollNumber: child.key,
-                        fullName: val.fullName || "",
-                        department: val.department || "",
-                        year: val.year || ""
-                    });
-                });
-            }
+        snap.forEach(c => {
+            let s = {roll: c.key, ...c.val()};
+            allStudents.push(s);
+            let opt = `<option value="${s.roll}">${s.fullName} - ${s.roll} | ${s.department} | ${s.semester || s.year}</option>`;
+            hwSel.innerHTML += opt;
+            asSel.innerHTML += opt;
         });
+        renderStudentDropdown(allStudents);
+    });
+}
 
-        // Universal real-time database listener for Faculty System
-        database.ref('globalNoticeboard').on('child_added', snapshot => {
-            const notice = snapshot.val();
-            const noticeId = snapshot.key;
+function renderStudentDropdown(list){
+    let dropdown = document.getElementById('marksStudentSelect');
+    dropdown.innerHTML = '<option value="">--Select Student--</option>';
+    list.forEach(s => {
+        dropdown.innerHTML += `<option value="${s.roll}">${s.fullName} - ${s.roll} | ${s.department} | ${s.semester || s.year}</option>`;
+    });
+}
 
-            if (sessionStorage.getItem(`dismissed_sos_${noticeId}`) !== 'true') {
-                document.getElementById("sos-title").innerText = notice.title;
-                document.getElementById("sos-body").innerText = notice.content;
-                document.getElementById("sos-timestamp").innerText = `Target: ${notice.targetAudience} | Sent: ${notice.timestamp}`;
-                
-                document.getElementById("sosNoticeModal").dataset.activeNoticeId = noticeId;
-                document.getElementById("sosNoticeModal").style.display = "flex";
-            }
-        });
-    };
+function filterStudents(){
+    let query = document.getElementById('studentSearch').value.toLowerCase();
+    let filtered = allStudents.filter(s => 
+        s.fullName.toLowerCase().includes(query) || s.roll.toLowerCase().includes(query)
+    );
+    renderStudentDropdown(filtered);
+}
 
-    function acknowledgeSosNotice() {
-        const modal = document.getElementById("sosNoticeModal");
-        const activeId = modal.dataset.activeNoticeId;
-        if(activeId) {
-            sessionStorage.setItem(`dismissed_sos_${activeId}`, 'true');
-        }
-        modal.style.display = "none";
+function fillStudentDetails(){
+    let roll = document.getElementById('marksStudentSelect').value;
+    let s = allStudents.find(x => x.roll == roll);
+    if(s){
+        document.getElementById('marksRoll').value = s.roll;
+        document.getElementById('marksDept').value = s.department || '';
+        document.getElementById('marksSem').value = s.semester || s.year || '';
+    } else {
+        document.getElementById('marksRoll').value = '';
+        document.getElementById('marksDept').value = '';
+        document.getElementById('marksSem').value = '';
     }
+}
 
-    function switchView(viewId, element) {
-        document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
-        document.querySelectorAll('.menu-links li').forEach(item => item.classList.remove('active'));
+function switchView(viewId, element) {
+    document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.menu-links li').forEach(i => i.classList.remove('active'));
+    document.getElementById('view-' + viewId).classList.add('active');
+    element.classList.add('active');
+}
 
-        const targetPanel = document.getElementById('view-' + viewId);
-        if(targetPanel) targetPanel.classList.add('active');
-        if(element) element.classList.add('active');
-
-        closeMobileSidebar();
+function handleSubmit(type){
+    event.preventDefault();
+    if(type === 'marks'){
+        const roll = document.getElementById('marksRoll').value;
+        if(!roll){ alert("Please select a student first"); return; }
+        db.ref('marks/' + roll).push({
+            subject: document.getElementById('marksSubject').value,
+            examination: document.getElementById('marksExam').value,
+            marksObtained: document.getElementById('marksObtained').value,
+            marksMax: document.getElementById('marksMax').value,
+            date: document.getElementById('marksDate').value,
+            gradedBy: instructorName
+        }).then(()=>{alert('Marks Published'); document.getElementById('marksForm').reset();});
     }
-
-    function toggleMobileSidebar() {
-        const sidebar = document.getElementById("sidebarNode");
-        sidebar.style.transform = sidebar.style.transform === "translateX(0px)" ? "translateX(-280px)" : "translateX(0px)";
+    if(type === 'notification'){
+        db.ref('remarks/all').push({
+            title: document.getElementById('notifTitle').value,
+            content: document.getElementById('notifContent').value,
+            instructor: instructorName,
+            date: new Date().toLocaleString()
+        }).then(()=>{alert('Notification Sent'); document.getElementById('notificationForm').reset();});
     }
+    // NEW: HOMEWORK
+    if(type === 'homework'){
+        const roll = document.getElementById('hwStudentSelect').value;
+        if(!roll){ alert("Select student"); return; }
+        db.ref('homeworks/' + roll).push({
+            subject: document.getElementById('hwSubject').value,
+            description: document.getElementById('hwDesc').value,
+            dueDate: document.getElementById('hwDueDate').value,
+            postedBy: instructorName,
+            postedOn: new Date().toLocaleString()
+        }).then(()=>{alert('Homework Posted'); document.getElementById('homeworkForm').reset();});
+    }
+    // NEW: ASSIGNMENT
+    if(type === 'assignment'){
+        const roll = document.getElementById('asStudentSelect').value;
+        if(!roll){ alert("Select student"); return; }
+        db.ref('assignments/' + roll).push({
+            title: document.getElementById('asTitle').value,
+            description: document.getElementById('asDesc').value,
+            lastDate: document.getElementById('asDueDate').value,
+            postedBy: instructorName,
+            postedOn: new Date().toLocaleString()
+        }).then(()=>{alert('Assignment Posted'); document.getElementById('assignmentForm').reset();});
+    }
+}
 
-    const courseSyllabusDataset = {
-        "BCA": ["Mathematics", "Computer Fundamentals", "C Programming", "Data Structures", "Database Management Systems", "Web Technology"],
-        "BBA": ["Principles of Management", "Business Economics", "Financial Accounting", "Marketing Management", "Human Resource Management"],
-        "BBA HT": ["Hotel Engineering", "Front Office Logistics", "Food Production Systems", "Tourism Economics"],
-        "BA": ["English Literature", "Political Science", "Sociology Core Parameters", "History Modules"],
-        "BSW": ["Social Work Intro", "Community Analysis Indices", "Psychology Foundation"],
-        "BCOM": ["Corporate Accounting", "Business Law Practices", "Auditing Matrices", "Taxation Frameworks"],
-        "MBA": ["Strategic Decisions Corporate", "Managerial Economics", "Organizational Behavior Framework"],
-        "MCOM": ["Advanced Accounting Logs", "Financial Policy Analytics", "Statistical Modeling"],
-        "MSW": ["Advanced Counseling Dynamics", "Field Research Projects", "Social Welfare Policy"],
-        "MA": ["Advanced Linguistic Theory", "Philosophical Synthesis", "Historical Historiography"],
-        "DOC": ["Research Thesis Methodology", "Quantitative Empirical Analytics", "Academic Publication Codes"]
-    };
-
-    function handleMarksFilterChange() {
-        const dept = document.getElementById("marksDept").value;
-        const sem = document.getElementById("marksSem").value;
-        const subjectSelect = document.getElementById("marksSubject");
-
-        if (dept && sem) {
-            subjectSelect.disabled = false;
-            subjectSelect.innerHTML = '<option value="">-- Choose Course --</option>';
-            
-            const courses = courseSyllabusDataset[dept] || ["General Syllabus Parameters"];
-            courses.forEach(course => {
-                subjectSelect.innerHTML += `<option value="${course}">${course}</option>`;
+function loadHomeworks(){
+    db.ref('homeworks').on('value', snap => {
+        let html = "";
+        snap.forEach(rollNode => {
+            let roll = rollNode.key;
+            let s = allStudents.find(x => x.roll == roll) || {};
+            rollNode.forEach(hw => {
+                let h = hw.val();
+                html += `<tr><td>${roll}</td><td>${s.fullName||'N/A'}</td><td>${h.subject}</td><td>${h.description}</td><td>${h.dueDate}</td></tr>`;
             });
-
-            document.getElementById("marksExam").disabled = false;
-            document.getElementById("marksObtained").disabled = false;
-            document.getElementById("marksMax").disabled = false;
-            document.getElementById("marksSubmitBtn").disabled = false;
-        } else {
-            subjectSelect.disabled = true;
-            subjectSelect.innerHTML = '<option value="">-- Select Department & Semester First --</option>';
-            document.getElementById("marksExam").disabled = true;
-            document.getElementById("marksObtained").disabled = true;
-            document.getElementById("marksMax").disabled = true;
-            document.getElementById("marksSubmitBtn").disabled = true;
-        }
-    }
-
-    function searchStudentByName() {
-        const input = document.getElementById("marksStudentSearch").value.toLowerCase().trim();
-        const suggestionsBox = document.getElementById("studentSuggestions");
-        const dept = document.getElementById("marksDept").value;
-        
-        suggestionsBox.innerHTML = "";
-        if (!input) return;
-
-        let filtered = globalStudentsList.filter(s => 
-            s.fullName.toLowerCase().includes(input) && (!dept || s.department === dept)
-        );
-
-        filtered.forEach(student => {
-            let div = document.createElement("div");
-            div.className = "suggestion-item";
-            div.innerText = `${student.fullName} (${student.rollNumber}) - ${student.department}`;
-            div.onclick = function() {
-                document.getElementById("marksStudentSearch").value = student.fullName;
-                document.getElementById("marksStudentRoll").value = student.rollNumber;
-                document.getElementById("previewName").innerText = student.fullName;
-                document.getElementById("previewRoll").innerText = student.rollNumber;
-                document.getElementById("studentPreviewCard").style.display = "flex";
-                suggestionsBox.innerHTML = "";
-                calculatePercentage();
-            };
-            suggestionsBox.appendChild(div);
         });
-    }
+        document.getElementById('hwTable').innerHTML = html || "<tr><td colspan='5'>No homeworks posted yet</td></tr>";
+    });
+}
 
-    function searchStudentByNameRemarks() {
-        const input = document.getElementById("remarksStudentSearch").value.toLowerCase().trim();
-        const suggestionsBox = document.getElementById("studentSuggestionsRemarks");
-        const dept = document.getElementById("remarksDept").value;
-        
-        suggestionsBox.innerHTML = "";
-        if (!input) return;
-
-        let filtered = globalStudentsList.filter(s => 
-            s.fullName.toLowerCase().includes(input) && (!dept || s.department === dept)
-        );
-
-        filtered.forEach(student => {
-            let div = document.createElement("div");
-            div.className = "suggestion-item";
-            div.innerText = `${student.fullName} (${student.rollNumber})`;
-            div.onclick = function() {
-                document.getElementById("remarksStudentSearch").value = student.fullName;
-                document.getElementById("remarksStudentRoll").value = student.rollNumber;
-                suggestionsBox.innerHTML = "";
-            };
-            suggestionsBox.appendChild(div);
+function loadAssignments(){
+    db.ref('assignments').on('value', snap => {
+        let html = "";
+        snap.forEach(rollNode => {
+            let roll = rollNode.key;
+            let s = allStudents.find(x => x.roll == roll) || {};
+            rollNode.forEach(as => {
+                let a = as.val();
+                html += `<tr><td>${roll}</td><td>${s.fullName||'N/A'}</td><td>${a.title}</td><td>${a.description}</td><td>${a.lastDate}</td></tr>`;
+            });
         });
-    }
+        document.getElementById('asTable').innerHTML = html || "<tr><td colspan='5'>No assignments posted yet</td></tr>";
+    });
+}
 
-    function calculatePercentage() {
-        const obtained = parseFloat(document.getElementById("marksObtained").value);
-        const max = parseFloat(document.getElementById("marksMax").value);
-        const display = document.getElementById("percentDisplay");
+function loadLeaves(){
+    db.ref('leaves').on('value', snap => {
+        let html = '<tr><th>Roll</th><th>Name</th><th>Dept</th><th>From</th><th>To</th><th>Reason</th><th>Status</th><th>Action</th></tr>';
+        snap.forEach(studentNode => {
+            let roll = studentNode.key;
+            let s = allStudents.find(x => x.roll == roll) || {};
+            studentNode.forEach(leaveNode => {
+                let l = leaveNode.val(); let key = leaveNode.key;
+                let status = l.status || 'Pending';
+                let color = status == 'Approved'? 'green' : status == 'Denied'? 'red' : 'orange';
+                html += `<tr>
+                    <td>${roll}</td><td>${s.fullName||'N/A'}</td><td>${s.department||'N/A'}</td>
+                    <td>${l.fromDate}</td><td>${l.toDate}</td><td>${l.reason}</td>
+                    <td style="color:${color}; font-weight:700;">${status}</td>
+                    <td>${status=='Pending'?`<button class="btn-approve" onclick="updateLeave('${roll}','${key}','Approved')">Approve</button><button class="btn-deny" onclick="updateLeave('${roll}','${key}','Denied')">Deny</button>`:'Done'}</td>
+                </tr>`;
+            })
+        });
+        document.getElementById('leaveTable').innerHTML = html;
+    });
+}
+function updateLeave(roll, key, status){ db.ref(`leaves/${roll}/${key}`).update({status}); }
 
-        if (obtained && max && max > 0) {
-            display.innerText = ((obtained / max) * 100).toFixed(2) + "%";
-        } else {
-            display.innerText = "--";
-        }
-    }
+function loadNotifications(){
+    db.ref('remarks/all').on('value', snap => {
+        let html = '<h4 style="margin-top:20px;">Sent Notifications</h4>';
+        snap.forEach(c => { let n = c.val(); html += `<p><b>${n.title}</b>: ${n.content} <small>by ${n.instructor}</small></p>`; });
+        document.getElementById('notifList').innerHTML = html;
+    });
+}
 
-    function handleFormSubmission(type) {
-        if(event) event.preventDefault();
-        const timestamp = new Date().toISOString();
-        let submissionPayload = {};
-        let nodePath = "";
-
-        if (type === 'marks') {
-            const roll = document.getElementById("marksStudentRoll").value;
-            if(!roll) { alert("Please click an autocomplete option."); return; }
-
-            submissionPayload = {
-                rollNumber: roll,
-                department: document.getElementById("marksDept").value,
-                semester: document.getElementById("marksSem").value,
-                subject: document.getElementById("marksSubject").value,
-                examination: document.getElementById("marksExam").value,
-                marksObtained: document.getElementById("marksObtained").value,
-                marksMax: document.getElementById("marksMax").value,
-                instructor: instructorName,
-                date: document.getElementById("marksDate").value
-            };
-            nodePath = 'marks/' + roll;
-
-        } else if (type === 'remarks') {
-            const roll = document.getElementById("remarksStudentRoll").value;
-            if(!roll) { alert("Please select a student from name matches."); return; }
-
-            submissionPayload = {
-                rollNumber: roll,
-                title: document.getElementById("remarksTitle").value.trim(),
-                content: document.getElementById("remarksContent").value.trim(),
-                severity: document.getElementById("remarksSeverity").value,
-                instructor: instructorName,
-                date: timestamp
-            };
-            nodePath = 'remarks/' + roll;
-
-        } else if (type === 'homework') {
-            submissionPayload = {
-                department: document.getElementById("homeworkDept").value,
-                semester: document.getElementById("homeworkSem").value,
-                subject: document.getElementById("homeworkSubject").value.trim(),
-                deadline: document.getElementById("homeworkDeadline").value,
-                content: document.getElementById("homeworkText").value.trim(),
-                instructor: instructorName,
-                date: timestamp
-            };
-            nodePath = 'homework';
-
-        } else if (type === 'assignments') {
-            submissionPayload = {
-                department: document.getElementById("assignDept").value,
-                semester: document.getElementById("assignSem").value,
-                code: document.getElementById("assignCode").value.trim(),
-                weightage: document.getElementById("assignWeight").value,
-                content: document.getElementById("assignText").value.trim(),
-                instructor: instructorName,
-                date: timestamp
-            };
-            nodePath = 'assignments';
-        }
-
-        database.ref(nodePath).push(submissionPayload)
-        .then(() => {
-            alert("Record successfully deployed!");
-            document.getElementById(type + "Form").reset();
-            if (type === 'marks') {
-                document.getElementById("studentPreviewCard").style.display = "none";
-                document.getElementById("percentDisplay").innerText = "--";
-                handleMarksFilterChange();
-            }
-        })
-        .catch(err => alert("Database write error: " + err.message));
-    }
-
-    function triggerLogout() {
-        localStorage.removeItem("currentTeacherId");
-        localStorage.removeItem("currentTeacherName");
-        window.location.href = "index.html";
-    }
-
-    function closeMobileSidebar() {
-        const sidebar = document.getElementById("sidebarNode");
-        if(window.innerWidth <= 992 && sidebar) {
-            sidebar.style.transform = "translateX(-280px)";
-        }
-    }
+function triggerLogout(){ localStorage.clear(); window.location.href = "index.html"; }
 </script>
 </body>
 </html>
